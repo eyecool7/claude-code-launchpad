@@ -26,7 +26,7 @@ else
   fi
   SAVED_HASH=$(cat "$HASH_FILE" 2>/dev/null)
   if [ -n "$CURRENT_HASH" ] && [ "$CURRENT_HASH" != "$SAVED_HASH" ]; then
-    echo "⚠️ 설정이 변경되었습니다. /refresh 실행을 권장합니다."
+    echo "⚠️ CLAUDE.md 또는 settings.json이 변경되었습니다. settings.json 변경은 다음 세션에서 반영됩니다."
   fi
 fi
 

@@ -6,12 +6,19 @@ description: 프로젝트 계획서 작성 프롬프트를 파일로 생성. cla
 
 ## 실행 절차
 
-1. Read 도구로 아래 템플릿 파일을 읽는다:
-   `~/.claude/plugins/cache/claude-code-project-launch/project-launch/1.0.0/templates/project-plan-prompt.md`
+1. Bash 도구로 플러그인 루트 경로를 읽는다:
+   ```bash
+   cat /tmp/.project-launch-root
+   ```
+   출력된 경로를 `PLUGIN_ROOT`로 사용한다.
+   파일이 없으면 → "Claude Code를 재시작해주세요 (플러그인 경로 초기화 필요)" 안내 후 중단.
 
-2. Write 도구로 프로젝트 루트에 `project-plan-prompt.md`로 저장한다.
+2. Read 도구로 템플릿 파일을 읽는다:
+   `$PLUGIN_ROOT/templates/project-plan-prompt.md`
 
-3. 사용자에게 다음만 전달한다:
+3. Write 도구로 프로젝트 루트에 `project-plan-prompt.md`로 저장한다.
+
+4. 사용자에게 다음만 전달한다:
 
 ---
 

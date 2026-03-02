@@ -1,5 +1,15 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-start.sh"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
@@ -25,20 +35,21 @@
   },
   "permissions": {
     "allow": [
-      "Bash(build:*)",
-      "Bash(test:*)",
-      "Bash(lint:*)",
-      "Bash(typecheck:*)",
-      "Bash(format:*)",
-      "Bash(find:*)",
-      "Bash(grep:*)",
-      "Bash(cat:*)",
-      "Bash(ls:*)"
+      "Bash({{PKG_MANAGER}} run build*)",
+      "Bash({{PKG_MANAGER}} run test*)",
+      "Bash({{PKG_MANAGER}} test*)",
+      "Bash({{PKG_MANAGER}} run lint*)",
+      "Bash({{PKG_MANAGER}} run typecheck*)",
+      "Bash({{PKG_MANAGER}} run format*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(ls *)"
     ],
     "deny": [
-      "Bash(rm -rf:*)",
-      "Bash(*>.env:*)",
-      "Bash(*>>.env:*)"
+      "Bash(rm -rf *)",
+      "Bash(* > .env*)",
+      "Bash(* >> .env*)"
     ]
   }
 }
