@@ -35,7 +35,7 @@ PATTERNS=(
   'rk_live_[a-zA-Z0-9]{24,}'      # Stripe restricted key
   'SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}'  # SendGrid API key
   'npd_[a-zA-Z0-9]{40,}'          # npm token
-  'PRIVATE KEY-----'              # Private key block
+  '-----BEGIN [A-Z ]*PRIVATE KEY-----'  # Private key block
 )
 
 FOUND=()

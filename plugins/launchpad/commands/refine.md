@@ -8,10 +8,22 @@ description: 프로젝트 계획서 고도화 프롬프트를 파일로 생성. 
 
 1. Bash 도구로 플러그인 루트 경로를 읽는다:
    ```bash
-   cat /tmp/.launchpad-root
+   PLUGIN_ROOT=$(cat /tmp/.launchpad-root 2>/dev/null)
+   if [ -z "$PLUGIN_ROOT" ]; then
+     PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-}"
+   fi
+   if [ -z "$PLUGIN_ROOT" ]; then
+     for CANDIDATE in ~/.claude/plugins/launchpad ./plugins/launchpad; do
+       if [ -f "$CANDIDATE/.claude-plugin/plugin.json" ]; then
+         PLUGIN_ROOT="$CANDIDATE"
+         break
+       fi
+     done
+   fi
+   echo "${PLUGIN_ROOT:-NOT_FOUND}"
    ```
    출력된 경로를 `PLUGIN_ROOT`로 사용한다.
-   파일이 없으면 → "Claude Code를 재시작해주세요 (플러그인 경로 초기화 필요)" 안내 후 중단.
+   NOT_FOUND이면 → "플러그인 경로를 찾을 수 없습니다. Claude Code를 재시작하거나 플러그인 설치를 확인하세요." 안내 후 중단.
 
 2. Read 도구로 템플릿 파일을 읽는다:
    `$PLUGIN_ROOT/templates/project-refine-prompt.md`

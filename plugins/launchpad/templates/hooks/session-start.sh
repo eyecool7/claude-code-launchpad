@@ -9,21 +9,25 @@ CONTEXT_FILE=".claude/cache/project-context.md"
 # 디렉토리 확인
 echo "📂 작업 디렉토리: $(pwd)"
 
+# 해시 계산 함수 (Linux/macOS 일관성 보장)
+_compute_hash() {
+  cat CLAUDE.md .claude/settings.json 2>/dev/null | \
+    if command -v md5sum &>/dev/null; then
+      md5sum | cut -d' ' -f1
+    elif command -v md5 &>/dev/null; then
+      md5
+    else
+      echo "nohash"
+    fi
+}
+
 # Hash 체크
 if [ ! -f "$HASH_FILE" ]; then
   # 최초 세션: hash 생성만, refresh 스킵
-  if command -v md5sum &>/dev/null; then
-    md5sum CLAUDE.md .claude/settings.json 2>/dev/null | md5sum | cut -d' ' -f1 > "$HASH_FILE"
-  elif command -v md5 &>/dev/null; then
-    cat CLAUDE.md .claude/settings.json 2>/dev/null | md5 > "$HASH_FILE"
-  fi
+  _compute_hash > "$HASH_FILE"
   echo "📎 첫 세션 감지. 설정 hash 생성 완료."
 else
-  if command -v md5sum &>/dev/null; then
-    CURRENT_HASH=$(md5sum CLAUDE.md .claude/settings.json 2>/dev/null | md5sum | cut -d' ' -f1)
-  elif command -v md5 &>/dev/null; then
-    CURRENT_HASH=$(cat CLAUDE.md .claude/settings.json 2>/dev/null | md5)
-  fi
+  CURRENT_HASH=$(_compute_hash)
   SAVED_HASH=$(cat "$HASH_FILE" 2>/dev/null)
   if [ -n "$CURRENT_HASH" ] && [ "$CURRENT_HASH" != "$SAVED_HASH" ]; then
     echo "⚠️ CLAUDE.md 또는 settings.json이 변경되었습니다. settings.json 변경은 다음 세션에서 반영됩니다."
