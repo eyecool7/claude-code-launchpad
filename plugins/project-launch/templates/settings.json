@@ -17,6 +17,19 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/pre-commit-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/command-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/db-guard.sh"
           }
         ]
       }
@@ -28,6 +41,19 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/edit-monitor.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/security-trigger.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/secret-guard.sh"
           }
         ]
       }

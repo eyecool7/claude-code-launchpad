@@ -121,8 +121,8 @@ Step 1의 분석 결과 + 계획서 + **Step 2의 스킬/MCP 검색 결과**를 
 │   ├── rules/        → {해당 규칙 파일 목록 나열}
 │   ├── skills/       → {해당 스킬 목록 나열}
 │   ├── agents/       → {해당 에이전트 목록 나열}
-│   ├── commands/     → {해당 커맨드 목록 나열}
-│   ├── hooks/        → {해당 훅 목록 나열}
+│   ├── commands/     → {해당 커맨드 목록 나열} (security-review 포함)
+│   ├── hooks/        → {해당 훅 목록 나열} (보안 훅 포함)
 │   └── settings.json, lessons.md, decisions.md
 ├── .mcp.json ({MCP 서버가 있으면 서버명 나열, 없으면 "생성 안 함"})
 └── .gitignore ({신규 프로젝트면 표시, 기존이면 생략})
@@ -191,7 +191,7 @@ CLAUDE.md 생성 핵심 규칙:
 
 **TODO/Placeholder 금지:** 최종 생성 파일에 `TODO`, `FIXME`, `Placeholder`, `여기에 작성` 등이 남아있으면 안 된다. 계획서에 정보가 부족하면 합리적 기본값으로 채우고 `[추정]` 표시.
 
-**항상 생성 (기본 19파일 + CLAUDE.md = 총 20파일):**
+**항상 생성 (기본 23파일 + CLAUDE.md = 총 24파일):**
 
 Rules (수동적 규칙 — 자동 로드):
 
@@ -214,13 +214,17 @@ Settings/Commands/Hooks/Agents:
 
 | 파일 | 커스터마이징 |
 |------|------------|
-| `settings.json` | PKG_MANAGER 기반 권한, pre-commit hook 명령어 |
+| `settings.json` | PKG_MANAGER 기반 권한, 보안 훅 등록 |
 | `commands/review.md` | 그대로 복사 |
 | `commands/check.md` | {{PKG_MANAGER}} 치환 |
 | `commands/commit-push-pr.md` | 그대로 복사 |
+| `commands/security-review.md` | {{PKG_MANAGER}} 치환 |
 | `hooks/session-start.sh` | 그대로 복사 |
 | `hooks/edit-monitor.sh` | 그대로 복사 |
 | `hooks/pre-commit-check.sh` | {{TYPECHECK_CMD}}, {{LINT_CMD}}, {{TEST_CMD}} 치환 |
+| `hooks/secret-guard.sh` | 그대로 복사 |
+| `hooks/command-guard.sh` | 그대로 복사 |
+| `hooks/security-trigger.sh` | 그대로 복사 |
 | `agents/test-runner.md` | {{TEST_CMD}} 치환 |
 | `agents/code-reviewer.md` | 그대로 복사 |
 | `agents/debugger.md` | 그대로 복사 |
@@ -241,6 +245,7 @@ Settings/Commands/Hooks/Agents:
 | 파일 | 커스터마이징 |
 |------|------------|
 | `rules/database.md` | ORM 감지 결과 기반으로 채움. paths 스코프를 프로젝트 DB 경로로 조정. |
+| `hooks/db-guard.sh` | 그대로 복사. MCP 도구를 통한 파괴적 SQL 차단. |
 
 **조건부 생성 (의존성 주의사항 있을 때):**
 
@@ -436,6 +441,7 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 │   ├── agents/       → test-runner, code-reviewer, debugger
 │   ├── commands/     → review, check, commit-push-pr
 │   ├── hooks/        → session-start, edit-monitor, pre-commit-check
+│   │                    + secret-guard, command-guard, security-trigger
 │   └── settings.json, lessons.md, decisions.md
 ├── .mcp.json (stripe, supabase)
 └── .gitignore
@@ -458,7 +464,7 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 | 항목 | 결과 |
 |------|------|
 | CLAUDE.md | 58줄 |
-| .claude/ 파일 | 22개 |
+| .claude/ 파일 | 26개 |
 | 작업 방식 | Tier 1 — 순차 작업 |
 | 커뮤니티 스킬 | 1개 설치 |
 | MCP 서버 | 2개 설정 |
@@ -477,8 +483,9 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 │   │                    + database
 │   ├── skills/       → project-directory, easy-refactoring, skill-discovery
 │   ├── agents/       → test-runner, code-reviewer, debugger
-│   ├── commands/     → review, check, commit-push-pr
+│   ├── commands/     → review, check, commit-push-pr, security-review
 │   ├── hooks/        → session-start, edit-monitor, pre-commit-check
+│   │                    + secret-guard, command-guard, security-trigger
 │   └── settings.json, lessons.md, decisions.md
 └── .gitignore
 
@@ -504,8 +511,9 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 │   │                    + design-rules, dependencies, ui-ux-pro-max (커뮤니티)
 │   ├── agents/       → test-runner, code-reviewer, debugger
 │   │                    + video-renderer, content-writer
-│   ├── commands/     → review, check, commit-push-pr
+│   ├── commands/     → review, check, commit-push-pr, security-review
 │   ├── hooks/        → session-start, edit-monitor, pre-commit-check
+│   │                    + secret-guard, command-guard, security-trigger
 │   └── settings.json, lessons.md, decisions.md
 ├── .mcp.json (supabase)
 └── .gitignore

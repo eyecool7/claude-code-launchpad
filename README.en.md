@@ -1,8 +1,22 @@
 # Project Launch
 
-From plan writing to auto-setup and step-by-step build guidance — a Launchpad for Claude Code projects.
+Claude Code Launchpad for Vibe Coders
+
+Project-tailored **Optimized PBS** — Plan · Build · Shield
 
 [한국어](README.md)
+
+---
+
+## Optimized PBS
+
+| Element | Meaning | Includes |
+|---------|---------|----------|
+| **Plan** | Project-tailored blueprint | CLAUDE.md, Rules, Skills, decisions.md, lessons.md |
+| **Build** | Automated build system | Agents, Commands, Phase-by-phase build guide, TDD assessment |
+| **Shield** | Ironclad security pipeline | 7 security hooks, /security scan, pre-commit validation |
+
+> **Optimized** = Settings tailored to each project's stack, scale, and requirements
 
 ---
 
@@ -23,8 +37,9 @@ You know you need a plan but don't know what to write, setup feels overwhelming,
 
 ## How Does It Work?
 
-Follow the 4 commands in order, and your project setup and build are complete.
+Follow the 5 commands in order, and your project setup and build are complete.
 
+0. **`/project-launch:guide`** — Onboarding: full workflow overview (first time)
 1. **`/project-launch:plan`** — Plan creation: generate a project plan through a structured interview
 2. **`/project-launch:refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
 3. **`/project-launch:setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
@@ -69,9 +84,9 @@ During the refine step, your plan's tech stack and requirements are analyzed to 
 
 `decisions.md` accumulates technical decisions (stack changes, API choices, architecture shifts), while `lessons.md` captures build failure causes and fixes. Running `/project-launch:build` in a new session reads the full plan + accumulated records + `git log`, determines what's been completed, and presents today's tasks. Even after days away, there's no need to re-explain context from scratch.
 
-### 6. Early Mistake Prevention
+### 6. Ironclad Security (Shield)
 
-Validation scripts run automatically during setup to catch stack/dependency conflicts, missing environment configs, and security gaps. For example, non-standard combos like Remotion + Next.js that cause bundler conflicts are detected with isolation guidance provided, and missing required settings trigger warnings.
+7 security hooks automatically guard your entire development process. API key leak detection (secret-guard), dangerous command blocking (command-guard), sensitive file modification alerts (security-trigger), destructive SQL prevention (db-guard), and pre-commit validation (pre-commit-check) work automatically. Run `/project-launch:security` anytime for CWE Top 25 security scanning. During setup, validation scripts also catch stack conflicts, missing environment configs, and security gaps.
 
 ---
 
@@ -112,6 +127,10 @@ claude plugin list
 
 ## Step-by-Step Guide
 
+### Step 0. Guide (First Time)
+
+Run `/project-launch:guide` → Full workflow overview and generated files description
+
 ### Step 1. Create Project Plan
 
 Run `/project-launch:plan` → `project-plan-prompt.md` auto-generated → Paste prompt into claude.ai and complete `project-plan.md` through interview → Save `project-plan.md` in project root
@@ -147,11 +166,13 @@ Run `/project-launch:setup` → Plan-based skill/MCP search → Setup preview ou
 > │   ├── agents/    → test-runner, code-reviewer, debugger, script-analyzer
 > │   ├── commands/  → /check, /review, /commit-push-pr
 > │   ├── hooks/     → session-start, edit-monitor, pre-commit-check
+> │   │                + secret-guard, command-guard, security-trigger
 > │   └── settings.json, lessons.md, decisions.md
 > └── .mcp.json (none)
 >
 > 🔌 Additional skills: remotion-community (community install)
 > 🤖 Work mode: Tier 2 — Subagents
+> 🛡️ Security: 6 hooks active
 > ⚠️ Compatibility: Remotion + Next.js bundler conflict (isolation required)
 >
 > Proceed with this setup?
@@ -177,11 +198,11 @@ Run `/project-launch:build` → Plan-based status analysis + build plan output �
 >
 > 🔧 **Session Build Order**
 >
-> | # | Task | Agent | Skill | Done When |
-> |---|------|:-----:|-------|-----------|
-> | 1 | Next.js + Tailwind + shadcn/ui init | — | dependencies | `pnpm dev` runs successfully |
-> | 2 | Create folder structure (`src/app`, `src/lib`, `src/remotion`) | — | project-directory | Matches plan folder structure |
-> | 3 | Shared type definitions (`src/types/index.ts`) | — | — | `pnpm run typecheck` passes |
+> | # | Task | Agent | Skill | TDD | Done When |
+> |---|------|:-----:|-------|:---:|-----------|
+> | 1 | Next.js + Tailwind + shadcn/ui init | — | dependencies | ❌ | `pnpm dev` runs successfully |
+> | 2 | Create folder structure (`src/app`, `src/lib`, `src/remotion`) | — | project-directory | ❌ | Matches plan folder structure |
+> | 3 | Shared type definitions (`src/types/index.ts`) | — | — | ✅ | Test first → `pnpm run typecheck` passes |
 >
 > **Ralph Loop:** Tasks 1,2,3 ✅ (mechanically verifiable)
 >
@@ -213,7 +234,7 @@ Run `/project-launch:build` → Plan-based status analysis + build plan output �
 
 The generated CLAUDE.md follows this principle. Generic best practices that Claude follows by default (PR separation, retry on error, etc.) are excluded. Only **rules unique to this project** — stack conflict warnings, verification commands, key paths, record triggers — are kept within ~80 lines.
 
-### Always Generated (20 files)
+### Always Generated (24 files)
 
 | Category | Files | Role |
 |----------|-------|------|
@@ -221,8 +242,8 @@ The generated CLAUDE.md follows this principle. Generic best practices that Clau
 | **Rules** | conventions, security, error-handling, testing | Auto-load when working on matching files |
 | **Skills** | project-directory, easy-refactoring, skill-discovery | File placement, refactoring, external skill search |
 | **Agents** | test-runner, code-reviewer, debugger | Delegate testing, review, debugging |
-| **Commands** | /check, /review, /commit-push-pr | Typecheck+lint+test, code review, PR creation |
-| **Hooks** | session-start, edit-monitor, pre-commit-check | Session init, edit watch, pre-commit validation |
+| **Commands** | /check, /review, /commit-push-pr, /security | Typecheck+lint+test, code review, PR creation, security scan |
+| **Hooks** | session-start, edit-monitor, pre-commit-check, secret-guard, command-guard, security-trigger | Session init, edit watch, pre-commit validation, secret detection, dangerous command blocking, sensitive file alerts |
 | **Records** | decisions.md, lessons.md | Technical decisions + mistake/solution log |
 | **Config** | settings.json | Permissions/hooks config |
 
@@ -250,6 +271,7 @@ my-project/
 ├── .claude/
 │   ├── commands/              ← /review, /check, /commit-push-pr
 │   ├── hooks/                 ← session-start, edit-monitor, pre-commit-check
+│   │                             + secret-guard, command-guard, security-trigger
 │   ├── rules/                 ← conventions, security, error-handling, testing (+conditional)
 │   ├── skills/                ← project-directory, easy-refactoring, skill-discovery (+conditional)
 │   ├── agents/                ← test-runner, code-reviewer, debugger (+conditional)
@@ -273,8 +295,8 @@ my-project/
 
 | Component | Description |
 |-----------|-------------|
-| Commands (4) | `/project-launch:plan`, `refine`, `setup`, `build` |
-| Templates (27) | CLAUDE.md, rules, skills, agents, commands, hooks, settings, records generation + 2 prompts |
+| Commands (6) | `/project-launch:guide`, `plan`, `refine`, `setup`, `build`, `security` |
+| Templates (32) | CLAUDE.md, rules, skills, agents, commands, hooks (4 security included), settings, records generation + 2 prompts |
 | Scripts (3) | analyze-project, validate-env, validate-setup |
 
 ---
@@ -286,7 +308,7 @@ claude-code-project-launch/
 ├── .claude-plugin/marketplace.json
 ├── plugins/project-launch/
 │   ├── .claude-plugin/plugin.json
-│   ├── commands/          ← plan, refine, setup, build
+│   ├── commands/          ← guide, plan, refine, setup, build
 │   ├── templates/         ← Templates referenced during generation
 │   └── scripts/           ← Analysis/validation scripts
 ├── README.md
