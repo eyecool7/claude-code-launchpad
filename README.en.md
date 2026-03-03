@@ -1,8 +1,8 @@
-# Project Launch
+# Claude Code Launchpad
 
-Claude Code Launchpad for Vibe Coders
+Context-Optimized Workflow for Vibe Coders
 
-Project-tailored **Optimized PBS** — Plan · Build · Shield
+One-stop project-tailored setup with Optimized PBS — from Plan to Build to Shield.
 
 [한국어](README.md)
 
@@ -16,43 +16,28 @@ Project-tailored **Optimized PBS** — Plan · Build · Shield
 | **Build** | Automated build system | Agents, Commands, Phase-by-phase build guide, TDD assessment |
 | **Shield** | Ironclad security pipeline | 7 security hooks, /security scan, pre-commit validation |
 
-> **Optimized** = Settings tailored to each project's stack, scale, and requirements
+> **Optimized** = Context-optimizing workflow + ironclad security, tailored to each project's stack, scale, and requirements
 
 ---
 
-## Who Is This For?
-
-You know you need a plan but don't know what to write, setup feels overwhelming, and you lose context every session. This tool is for you.
+## Who Is This Workflow For?
 
 - You know a good project plan matters, but don't know what to write
-- You want to start a Claude Code project but the initial setup feels overwhelming
-  - You're debating whether CLAUDE.md should be 58 lines or 500
-  - Subagents, team mode, skills, MCP — you don't know which to pick
-  - You're not sure which skills and MCP servers your project actually needs
-  - You don't know how to configure security settings properly
-- You want a tool that doesn't stop at setup — one that guides every build session based on your plan
+- CLAUDE.md, subagents, skills, MCP — you don't know how to set them up
+- You want more than just setup — you want build guidance every session based on your plan
 - You lose context every time a session changes and keep repeating mistakes
 
 ---
 
 ## How Does It Work?
 
-Follow the 5 commands in order, and your project setup and build are complete.
+Follow the Optimized PBS workflow — 5 commands in order, and your project setup and build are complete.
 
-0. **`/project-launch:guide`** — Onboarding: full workflow overview (first time)
-1. **`/project-launch:plan`** — Plan creation: generate a project plan through a structured interview
-2. **`/project-launch:refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
-3. **`/project-launch:setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
-4. **`/project-launch:build`** — Project build: status analysis and build plan every session
-
-**Plan (`project-plan.md`) data flow:**
-
-| Step | What it does to the plan (`project-plan.md`) |
-|------|------------------------------------------------|
-| `plan` | Define Sections 1-5 + write Section 6 with agent/skill mapping |
-| `refine` | Update Sections 3-6 with interview + search results |
-| `setup` | Generate config files from plan + append Section 7 (setup results) |
-| `build` | Preview build plan from Section 6 (read-only) |
+0. **`/launchpad:guide`** — Onboarding: full workflow overview (first time)
+1. **`/launchpad:plan`** — Plan creation: generate a project plan through a structured interview
+2. **`/launchpad:refine`** — Plan refinement: complete the plan with deep technical review and skill/MCP discovery
+3. **`/launchpad:setup`** — Project setup: auto-generate CLAUDE.md and config files from the plan
+4. **`/launchpad:build`** — Project build: status analysis and build plan every session
 
 ---
 
@@ -62,9 +47,9 @@ Follow the 5 commands in order, and your project setup and build are complete.
 
 Interview-based planning in claude.ai → deep technical review in Claude Code. Two passes produce a thorough, gap-free plan. Pass 1 structures product context, core features, workflows, and implementation order through a guided interview. Pass 2 adds technical depth — stack compatibility checks, dependency conflict detection, and skill/MCP recommendations. Each pass comes with a ready-made prompt (project-plan-prompt and project-refine-prompt), so you never have to write one from scratch.
 
-### 2. 4-Step Plan/Setup/Build Automation
+### 2. Optimized PBS Automation
 
-Run /plan → /refine → /setup → /build commands in sequence to complete the planning, setup, and build process with ease. The setup step auto-generates 20 files — CLAUDE.md, rules, skills, agents, commands, hooks, and settings — all driven by your plan. CLAUDE.md length, security settings, agent structure — the plan decides everything, ensuring a consistent project environment and delivering results faithful to your original vision.
+Run /plan → /refine → /setup → /build commands in sequence to complete planning, setup, and build. The setup step auto-generates 24 files — CLAUDE.md, rules, skills, agents, commands, hooks, and settings — all driven by your plan. CLAUDE.md length, security settings, agent structure — the plan decides everything, ensuring a consistent project environment and delivering results faithful to your original vision.
 
 ### 3. Tier-Based Work Mode
 
@@ -82,11 +67,11 @@ During the refine step, your plan's tech stack and requirements are analyzed to 
 
 ### 5. Cross-Session Context Continuity
 
-`decisions.md` accumulates technical decisions (stack changes, API choices, architecture shifts), while `lessons.md` captures build failure causes and fixes. Running `/project-launch:build` in a new session reads the full plan + accumulated records + `git log`, determines what's been completed, and presents today's tasks. Even after days away, there's no need to re-explain context from scratch.
+`decisions.md` accumulates technical decisions (stack changes, API choices, architecture shifts), while `lessons.md` captures build failure causes and fixes. Running `/launchpad:build` in a new session reads the full plan + accumulated records + `git log`, determines what's been completed, and presents today's tasks. Even after days away, there's no need to re-explain context from scratch.
 
 ### 6. Ironclad Security (Shield)
 
-7 security hooks automatically guard your entire development process. API key leak detection (secret-guard), dangerous command blocking (command-guard), sensitive file modification alerts (security-trigger), destructive SQL prevention (db-guard), and pre-commit validation (pre-commit-check) work automatically. Run `/project-launch:security` anytime for CWE Top 25 security scanning. During setup, validation scripts also catch stack conflicts, missing environment configs, and security gaps.
+7 security hooks automatically guard your entire development process. API key leak detection (secret-guard), dangerous command blocking (command-guard), sensitive file modification alerts (security-trigger), destructive SQL prevention (db-guard), and pre-commit validation (pre-commit-check) work automatically. Run `/launchpad:security` anytime for CWE Top 25 security scanning. During setup, validation scripts also catch stack conflicts, missing environment configs, and security gaps.
 
 ---
 
@@ -97,13 +82,13 @@ During the refine step, your plan's tech stack and requirements are analyzed to 
 Add the marketplace inside Claude Code first.
 
 ```
-/plugin marketplace add eyecool7/claude-code-project-launch
+/plugin marketplace add eyecool7/claude-code-launchpad
 ```
 
 Then install the plugin.
 
 ```
-/plugin install project-launch@eyecool7
+/plugin install launchpad@eyecool7
 ```
 
 ### Method 2: Terminal CLI
@@ -111,8 +96,8 @@ Then install the plugin.
 Run in a regular terminal (zsh/bash).
 
 ```bash
-claude plugin marketplace add eyecool7/claude-code-project-launch
-claude plugin install project-launch@eyecool7
+claude plugin marketplace add eyecool7/claude-code-launchpad
+claude plugin install launchpad@eyecool7
 
 # Verify installation
 claude plugin list
@@ -129,31 +114,31 @@ claude plugin list
 
 ### Step 0. Guide (First Time)
 
-Run `/project-launch:guide` → Full workflow overview and generated files description
+Run `/launchpad:guide` → Full workflow overview and generated files description
 
 ### Step 1. Create Project Plan
 
-Run `/project-launch:plan` → `project-plan-prompt.md` auto-generated → Paste prompt into claude.ai and complete `project-plan.md` through interview → Save `project-plan.md` in project root
+Run `/launchpad:plan` → `project-plan-prompt.md` auto-generated → Paste prompt into claude.ai and complete `project-plan.md` through interview → Save `project-plan.md` in project root
 
 > **Instructions shown when command runs:**
 > 1. Open `project-plan-prompt.md` and fill in `[Project Name]` and `Project Overview`.
 > 2. Paste the full prompt into **claude.ai** and complete the plan through conversation.
 > 3. Save the finished plan as `project-plan.md` in the project root.
-> 4. Run `/project-launch:refine` to proceed to the next step.
+> 4. Run `/launchpad:refine` to proceed to the next step.
 
 ### Step 2. Refine Project Plan
 
-Run `/project-launch:refine` → `project-refine-prompt.md` auto-generated → Paste prompt into Claude Code for technical review + skill/MCP search → Refine `project-plan.md` → Save in project root (overwrite)
+Run `/launchpad:refine` → `project-refine-prompt.md` auto-generated → Paste prompt into Claude Code for technical review + skill/MCP search → Refine `project-plan.md` → Save in project root (overwrite)
 
 > **Instructions shown when command runs:**
 > 1. Open `project-refine-prompt.md` and paste the prompt into **Claude Code**.
 > 2. Refine `project-plan.md` through conversation with Claude Code.
 > 3. Save the refined plan back to `project-plan.md` in the project root.
-> 4. Run `/project-launch:setup` to proceed to the next step.
+> 4. Run `/launchpad:setup` to proceed to the next step.
 
 ### Step 3. Project Setup
 
-Run `/project-launch:setup` → Plan-based skill/MCP search → Setup preview output/confirm → CLAUDE.md and config files auto-generated → **Setup results** auto-appended to `project-plan.md` (setup context preserved even after `/clear`)
+Run `/launchpad:setup` → Plan-based skill/MCP search → Setup preview output/confirm → CLAUDE.md and config files auto-generated → **Setup results** auto-appended to `project-plan.md` (setup context preserved even after `/clear`)
 
 > **Shows a setup preview for approval before executing:**
 >
@@ -178,11 +163,11 @@ Run `/project-launch:setup` → Plan-based skill/MCP search → Setup preview ou
 > Proceed with this setup?
 > ```
 >
-> Approve to run setup → then `/clear` → `/project-launch:build` to start building.
+> Approve to run setup → then `/clear` → `/launchpad:build` to start building.
 
 ### Step 4. Start Building
 
-Run `/project-launch:build` → Plan-based status analysis + build plan output → Start building (even after days away, reads full plan + `decisions.md`, `lessons.md`, `git log` to determine where to continue)
+Run `/launchpad:build` → Plan-based status analysis + build plan output → Start building (even after days away, reads full plan + `decisions.md`, `lessons.md`, `git log` to determine where to continue)
 
 > **Output example:**
 > 📋 **Project Status**
@@ -232,7 +217,7 @@ Run `/project-launch:build` → Plan-based status analysis + build plan output �
 > *"Don't write what Claude already knows. Only keep rules unique to your project."*
 > — Inspired by [Andrej Karpathy's Claude Code principles](https://github.com/forrestchang/andrej-karpathy-skills)
 
-The generated CLAUDE.md follows this principle. Generic best practices that Claude follows by default (PR separation, retry on error, etc.) are excluded. Only **rules unique to this project** — stack conflict warnings, verification commands, key paths, record triggers — are kept within ~80 lines.
+The generated CLAUDE.md follows this principle. Generic best practices that Claude follows by default (PR separation, retry on error, etc.) are excluded. Only **rules unique to this project** — stack conflict warnings, verification commands, key paths, record triggers — are kept within ~80 lines, optimizing context for every session.
 
 ### Always Generated (24 files)
 
@@ -295,7 +280,7 @@ my-project/
 
 | Component | Description |
 |-----------|-------------|
-| Commands (6) | `/project-launch:guide`, `plan`, `refine`, `setup`, `build`, `security` |
+| Commands (6) | `/launchpad:guide`, `plan`, `refine`, `setup`, `build`, `security` |
 | Templates (32) | CLAUDE.md, rules, skills, agents, commands, hooks (4 security included), settings, records generation + 2 prompts |
 | Scripts (3) | analyze-project, validate-env, validate-setup |
 
@@ -304,9 +289,9 @@ my-project/
 ## Plugin Structure
 
 ```
-claude-code-project-launch/
+claude-code-launchpad/
 ├── .claude-plugin/marketplace.json
-├── plugins/project-launch/
+├── plugins/launchpad/
 │   ├── .claude-plugin/plugin.json
 │   ├── commands/          ← guide, plan, refine, setup, build
 │   ├── templates/         ← Templates referenced during generation

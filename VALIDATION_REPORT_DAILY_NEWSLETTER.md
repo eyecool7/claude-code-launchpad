@@ -2,7 +2,7 @@
 
 - Date: 2026-02-26 17:19:49 EST
 - Plugin Commit: `b40fe25`
-- Target Workflow: `/project-launch:plan -> /project-launch:refine -> /project-launch:setup`
+- Target Workflow: `/launchpad:plan -> /launchpad:refine -> /launchpad:setup`
 - Validation Focus: setup workflow stability (`analyze-project.sh`, `validate-env.sh`, `validate-setup.sh`)
 
 ## 1. Test Scenario
@@ -25,7 +25,7 @@ Created minimal project files:
 
 ### Step A: Project analysis
 Command:
-- `bash plugins/project-launch/scripts/analyze-project.sh /tmp/daily-newsletter-validation`
+- `bash plugins/launchpad/scripts/analyze-project.sh /tmp/daily-newsletter-validation`
 
 Result:
 - `PKG_MANAGER=npm`
@@ -39,7 +39,7 @@ Status: **PASS**
 
 ### Step B: Environment validation
 Command:
-- `bash plugins/project-launch/scripts/validate-env.sh /tmp/daily-newsletter-validation`
+- `bash plugins/launchpad/scripts/validate-env.sh /tmp/daily-newsletter-validation`
 
 Result:
 - `.env` detected
@@ -51,7 +51,7 @@ Status: **PASS**
 
 ### Step C: Setup validation (before setup artifacts)
 Command:
-- `bash plugins/project-launch/scripts/validate-setup.sh /tmp/daily-newsletter-validation`
+- `bash plugins/launchpad/scripts/validate-setup.sh /tmp/daily-newsletter-validation`
 
 Result:
 - expected failures: missing `CLAUDE.md`, `.claude/settings.json`, required commands/hooks/rules/agents files
@@ -64,7 +64,7 @@ Action:
 - generated minimal valid `CLAUDE.md` and required `.claude/*` files (commands/hooks/rules/agents/skills/settings/lessons/decisions)
 
 Command:
-- `bash plugins/project-launch/scripts/validate-setup.sh /tmp/daily-newsletter-validation`
+- `bash plugins/launchpad/scripts/validate-setup.sh /tmp/daily-newsletter-validation`
 
 Result:
 - `No unreplaced variables`

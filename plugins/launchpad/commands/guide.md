@@ -2,25 +2,27 @@
 description: 전체 워크플로우 안내. 처음 사용 시 먼저 실행. guide, 가이드, 도움말, 시작, 처음, help, start, 안내 시 사용.
 ---
 
-# Project Launch 가이드
+# Launchpad 가이드
 
 사용자에게 다음을 출력한다:
 
 ---
 
-## Project Launch — 바이브 코더를 위한 Claude Code Launchpad
+## Claude Code Launchpad
 
-프로젝트 맞춤 **Optimized PBS** — 계획(Plan) · 구축(Build) · 보안(Shield)
+바이브 코더를 위한 컨텍스트 최적화 워크플로우
+
+Optimized PBS 하나로 프로젝트 맞춤 계획(Plan)부터 구축(Build), 보안(Shield)까지 원스톱으로.
 
 ### 워크플로우
 
 | # | 명령어 | 하는 일 | 소요 |
 |---|--------|---------|------|
-| 0 | `/project-launch:guide` | 워크플로우 안내 (지금 여기) | 1분 |
-| 1 | `/project-launch:plan` | 계획서 작성 프롬프트 생성 → claude.ai에서 완성 | 15분 |
-| 2 | `/project-launch:refine` | 기술 심화 + 스킬/MCP 자동 검색 | 10분 |
-| 3 | `/project-launch:setup` | CLAUDE.md + 설정 파일 자동 생성 | 3분 |
-| 4 | `/project-launch:build` | 매 세션 시작 시 실행. 현황 분석 + 구축 계획 | 1분 |
+| 0 | `/launchpad:guide` | 워크플로우 안내 (지금 여기) | 1분 |
+| 1 | `/launchpad:plan` | 계획서 작성 프롬프트 생성 → claude.ai에서 완성 | 15분 |
+| 2 | `/launchpad:refine` | 기술 심화 + 스킬/MCP 자동 검색 | 10분 |
+| 3 | `/launchpad:setup` | CLAUDE.md + 설정 파일 자동 생성 | 3분 |
+| 4 | `/launchpad:build` | 매 세션 시작 시 실행. 현황 분석 + 구축 계획 | 1분 |
 
 ### 생성되는 것들
 
@@ -39,7 +41,7 @@ description: 전체 워크플로우 안내. 처음 사용 시 먼저 실행. gui
 - /security — CWE Top 25 기반 보안 스캔
 - pre-commit 검증 — 커밋 전 typecheck + lint + test 자동 실행
 
-**시작하려면** `/project-launch:plan`을 입력하세요.
+**시작하려면** `/launchpad:plan`을 입력하세요.
 
 ---
 

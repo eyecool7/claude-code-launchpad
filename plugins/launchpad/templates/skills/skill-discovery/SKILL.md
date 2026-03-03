@@ -139,6 +139,6 @@ rm -rf /tmp/vive-md /tmp/skills-* /tmp/ui-ux-pro-max-skill
 
 ## 이 스킬의 호출 시점
 
-- `/project-launch:refine` 실행 시 — 계획서 섹션 3 채우기 위해
-- `/project-launch:setup` 실행 시 — 계획서 섹션 3이 비어있을 때 폴백으로
+- `/launchpad:refine` 실행 시 — 계획서 섹션 3 채우기 위해
+- `/launchpad:setup` 실행 시 — 계획서 섹션 3이 비어있을 때 폴백으로
 - 개발 중 — 특정 라이브러리의 best practice가 필요할 때

@@ -5,7 +5,7 @@
 1. project-refine-prompt.md를 열어서 프롬프트 내용을 claude code 채팅창에 붙여넣습니다.
 2. claude code와 대화하며 project-plan.md 계획서를 고도화하세요.
 3. 수정된 계획서를 프로젝트 루트에 project-plan.md로 다시 저장합니다. (기존 파일 덮어쓰기)
-4. /project-launch:setup 스킬을 실행하여 다음 단계로 넘어갑니다.
+4. /launchpad:setup 스킬을 실행하여 다음 단계로 넘어갑니다.
 
 ## 전제 조건
 - 계획서 작성이 완료되어 `project-plan.md`가 루트에 있어야 한다.

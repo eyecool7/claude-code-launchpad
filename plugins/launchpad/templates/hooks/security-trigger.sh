@@ -43,7 +43,7 @@ if [ -n "$TRIGGERED" ]; then
   echo "🔐 민감 파일 수정 감지: $TRIGGERED"
   echo "   파일: $FILE_PATH"
   echo "   → 변경사항이 보안에 영향을 주는지 검토하세요."
-  echo "   → 필요 시 /project-launch:security 로 보안 스캔을 실행하세요."
+  echo "   → 필요 시 /launchpad:security 로 보안 스캔을 실행하세요."
   echo ""
 fi
 

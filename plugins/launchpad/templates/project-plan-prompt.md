@@ -5,7 +5,7 @@
 1. project-plan-prompt.md를 열어서 [프로젝트 이름]과 프로젝트 개요를 채우세요.
 2. 프롬프트 전체 내용을 claude.ai 채팅창에 붙여넣고 대화하며 계획서를 완성하세요.
 3. 완성된 계획서를 project-plan.md로 저장하고 프로젝트 루트에 넣으세요.
-4. /project-launch:refine 명령어를 실행하여 다음 단계로 넘어갑니다.
+4. /launchpad:refine 명령어를 실행하여 다음 단계로 넘어갑니다.
 
 ---
 
@@ -20,7 +20,7 @@
 ## 최종 산출물
 
 1개의 md 파일 **project-plan.md** — 제품 정의부터 구현 설계까지 담긴 통합 계획서.
-이 문서는 claude-code-project-launch 스킬의 입력으로 사용된다.
+이 문서는 claude-code-launchpad 스킬의 입력으로 사용된다.
 
 ## 계획서에 포함될 내용
 
@@ -72,7 +72,7 @@
 
 #### 스킬 / MCP 선정
 
-> **실제 검색과 설치는 refine 단계(`/project-launch:refine`)에서 Claude Code가 수행한다.**
+> **실제 검색과 설치는 refine 단계(`/launchpad:refine`)에서 Claude Code가 수행한다.**
 > 이 섹션에서는 프로젝트에 필요한 검색 키워드만 정리한다.
 
 P0/P1 핵심 기능별로 어떤 전문 스킬이나 MCP가 도움될지 키워드로 정리:

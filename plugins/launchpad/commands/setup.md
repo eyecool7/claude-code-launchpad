@@ -8,21 +8,21 @@ description: 프로젝트 계획서(project-plan.md) 기반으로 CLAUDE.md + .c
 
 **전제 조건:** 프로젝트 계획서(`project-plan.md`)가 프로젝트 루트에 이미 존재해야 한다.
 이 커맨드는 계획서를 만들지 않는다 — 소비할 뿐이다.
-계획서 작성은 `/project-launch:plan` → `/project-launch:refine` 순서로 진행한다.
+계획서 작성은 `/launchpad:plan` → `/launchpad:refine` 순서로 진행한다.
 
 ## 플러그인 경로 초기화
 
 먼저 플러그인 루트 경로를 읽는다:
 
 ```bash
-PLUGIN_ROOT=$(cat /tmp/.project-launch-root 2>/dev/null)
+PLUGIN_ROOT=$(cat /tmp/.launchpad-root 2>/dev/null)
 if [ -z "$PLUGIN_ROOT" ]; then
   # fallback: CLAUDE_PLUGIN_ROOT 환경변수 직접 확인
   PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-}"
 fi
 if [ -z "$PLUGIN_ROOT" ]; then
   # fallback: 알려진 설치 경로에서 탐색
-  for CANDIDATE in ~/.claude/plugins/project-launch ./plugins/project-launch; do
+  for CANDIDATE in ~/.claude/plugins/launchpad ./plugins/launchpad; do
     if [ -f "$CANDIDATE/.claude-plugin/plugin.json" ]; then
       PLUGIN_ROOT="$CANDIDATE"
       break
@@ -41,8 +41,8 @@ echo "✅ 플러그인 경로: $PLUGIN_ROOT"
 
 ## 세션 전략 (2-Session 워크플로우)
 
-1. **세션 1 — 기획:** `/project-launch:plan` + `/project-launch:refine`으로 계획서 작성 → 파일 저장 → 세션 종료
-2. **세션 2 — 구현:** 새 세션 시작 → `/project-launch:setup` → 이 커맨드 실행
+1. **세션 1 — 기획:** `/launchpad:plan` + `/launchpad:refine`으로 계획서 작성 → 파일 저장 → 세션 종료
+2. **세션 2 — 구현:** 새 세션 시작 → `/launchpad:setup` → 이 커맨드 실행
 
 기획 대화의 수정 히스토리가 구현 컨텍스트를 오염시키므로 반드시 분리.
 
@@ -367,7 +367,7 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 ```markdown
 ---
 
-## 7. 셋업 결과 (자동 생성 — /project-launch:setup)
+## 7. 셋업 결과 (자동 생성 — /launchpad:setup)
 
 **생성일:** {오늘 날짜 YYYY-MM-DD}
 **Agent Tier:** {계획서 섹션 4의 Tier 값} ({Tier 이름})
@@ -419,7 +419,7 @@ Edit 도구로 `project-plan.md`의 마지막 줄 뒤에 아래 형식을 추가
 | MCP 서버 | {서버 수}개 설정 |
 | 호환성 주의 | {있으면 경고 내용 / 없으면 "없음"} |
 
-`/clear`로 컨텍스트를 비우고 `/project-launch:build`를 실행하면 계획서 기반 개발이 시작됩니다.
+`/clear`로 컨텍스트를 비우고 `/launchpad:build`를 실행하면 계획서 기반 개발이 시작됩니다.
 
 ---
 
