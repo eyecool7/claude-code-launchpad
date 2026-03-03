@@ -19,31 +19,43 @@ git clone --depth 1 https://github.com/johunsang/vive-md.git /tmp/vive-md
 
 ## 검색 소스 (우선순위 순)
 
-| 우선순위 | 소스 | 경로/URL | 용도 |
-|:-------:|------|----------|------|
-| 1 | vive-md 스킬 카탈로그 | `/tmp/vive-md/vibe-coding/resources/Awesome-Claude-Skills-한국어-가이드.md` | 커뮤니티 스킬 키워드 검색 (한국어 가이드) |
-| 2 | vive-md MCP 서버 카탈로그 | `/tmp/vive-md/vibe-coding/mcp/04-MCP-서버-카탈로그.md` | 스택별 MCP 서버 선정 |
-| 3 | vive-md MCP 설정 패턴 | `/tmp/vive-md/vibe-coding/mcp/03-MCP-실전-패턴-모음.md` | 검증된 .mcp.json 레퍼런스 |
-| 4 | Anthropic 공식 | `github.com/anthropics/skills` | 공식 스킬 (⭐ 80k) |
-| 5 | Trail of Bits | `github.com/trailofbits/skills` | 보안/정적분석/리뷰 (⭐ 3k) |
+| 우선순위 | 소스 | 경로/URL | 용도 | 신뢰 등급 |
+|:-------:|------|----------|------|:---------:|
+| 1 | vive-md 스킬 카탈로그 | `/tmp/vive-md/vibe-coding/resources/Awesome-Claude-Skills-한국어-가이드.md` | 커뮤니티 스킬 키워드 검색 (한국어 가이드) | 🟡 큐레이션 |
+| 2 | vive-md MCP 서버 카탈로그 | `/tmp/vive-md/vibe-coding/mcp/04-MCP-서버-카탈로그.md` | 스택별 MCP 서버 선정 | 🟡 큐레이션 |
+| 3 | vive-md MCP 설정 패턴 | `/tmp/vive-md/vibe-coding/mcp/03-MCP-실전-패턴-모음.md` | 검증된 .mcp.json 레퍼런스 | 🟡 큐레이션 |
+| 4 | Anthropic 공식 | `github.com/anthropics/skills` | 공식 스킬 (⭐ 80k) | 🟢 공식 |
+| 5 | Trail of Bits | `github.com/trailofbits/skills` | 보안/정적분석/리뷰 (⭐ 3k) | 🟢 검증됨 |
 
 우선순위 1~3은 vive-md 한 번 클론으로 전부 검색 가능.
 4~5는 해당 분야가 프로젝트에 필요할 때만 추가 클론.
+
+### 신뢰 등급 체계
+
+| 등급 | 라벨 | 기준 | 비고 |
+|:----:|------|------|------|
+| 🟢 | **공식** | Anthropic 공식 레포 | 무조건 신뢰 |
+| 🟢 | **검증됨** | 보안 전문 조직 또는 ⭐ 1k+ 레포 | 높은 신뢰 |
+| 🟡 | **큐레이션** | Awesome 리스트 등 큐레이터가 선별한 목록 | 선별됨, 개별 검증은 필요 |
+| 🟠 | **커뮤니티** | 웹 마켓플레이스 자동 수집, ⭐ 100 미만 | 사용 전 README + 코드 확인 권장 |
+| 🔴 | **미검증** | 출처 불명 또는 업데이트 6개월+ 없음 | 설치 비권장, 사용자에게 경고 필수 |
+
+검색 결과 테이블에 신뢰 등급을 반드시 표시한다. 🔴 미검증 스킬은 설치 전 사용자에게 리스크를 명시적으로 고지한다.
 
 ### 웹 마켓플레이스 (보조 참고)
 
 GitHub 소스에서 못 찾았을 때, 아래 웹 마켓플레이스에서 추가 검색한다.
 WebSearch/WebFetch 도구로 접근 가능.
 
-| 사이트 | URL | 특징 |
-|--------|-----|------|
-| aitmpl.com | `https://www.aitmpl.com/skills` | Skills/Agents/Commands/Hooks/MCP/Templates. Stack Builder로 스택별 필터 |
-| SkillHub | `https://skillhub.club` | 7k+ 스킬. AI 5차원 평가 (보안, 성능, 호환성 등) |
-| Skills MP | `https://skillsmp.com` | 66k+ GitHub SKILL.md 자동 수집. 대규모 검색에 유용 |
-| MCP Market | `https://mcpmarket.com/tools/skills` | Agent Skills + MCP 서버 통합 디렉토리 |
-| mcpservers.org | `https://mcpservers.org/claude-skills` | Claude Skills 라이브러리 + MCP 서버 카탈로그 |
+| 사이트 | URL | 특징 | 신뢰 등급 |
+|--------|-----|------|:---------:|
+| aitmpl.com | `https://www.aitmpl.com/skills` | Skills/Agents/Commands/Hooks/MCP/Templates. Stack Builder로 스택별 필터 | 🟠 커뮤니티 |
+| SkillHub | `https://skillhub.club` | 7k+ 스킬. AI 5차원 평가 (보안, 성능, 호환성 등) | 🟠 커뮤니티 |
+| Skills MP | `https://skillsmp.com` | 66k+ GitHub SKILL.md 자동 수집. 대규모 검색에 유용 | 🟠 커뮤니티 |
+| MCP Market | `https://mcpmarket.com/tools/skills` | Agent Skills + MCP 서버 통합 디렉토리 | 🟠 커뮤니티 |
+| mcpservers.org | `https://mcpservers.org/claude-skills` | Claude Skills 라이브러리 + MCP 서버 카탈로그 | 🟠 커뮤니티 |
 
-**주의:** 웹 마켓플레이스는 보조 수단이다. 우선순위 1~5 GitHub 소스를 먼저 검색한 후, 결과가 부족할 때만 참고한다.
+**주의:** 웹 마켓플레이스(🟠)는 보조 수단이다. 우선순위 1~5 GitHub 소스(🟢/🟡)를 먼저 검색한 후, 결과가 부족할 때만 참고한다. 🟠 소스의 스킬은 설치 전 README와 코드를 반드시 확인한다.
 
 **필수 규칙: 프론트엔드가 포함된 프로젝트면 ui-ux-pro-max를 무조건 설치한다.**
 ```bash
@@ -66,12 +78,16 @@ rm -rf /tmp/ui-ux-pro-max-skill
 결과를 아래 형식으로 정리:
 
 ```
-| 기능 | 검색 키워드 | 검색 결과 | 선택 |
-|------|-----------|----------|------|
-| (예: 영상 생성) | remotion | (스킬명 + 출처) 또는 "해당 없음" | 설치 / 직접 구현 + 이유 |
+| 기능 | 검색 키워드 | 검색 결과 | 신뢰도 | 선택 |
+|------|-----------|----------|:------:|------|
+| (예: 영상 생성) | remotion | remotion-community (vive-md) | 🟡 | 설치 |
+| (예: 결제) | stripe | 해당 없음 | — | 직접 구현 |
+| (예: PDF 생성) | react-pdf | pdf-skill (skillsmp.com) | 🟠 | 설치 (README 확인 완료) |
 ```
 
-검색 결과가 없어도 "해당 없음 — 직접 구현"으로 명시. **검색 자체를 생략하지 말 것.**
+- 검색 결과가 없어도 "해당 없음 — 직접 구현"으로 명시. **검색 자체를 생략하지 말 것.**
+- 신뢰도 열에 검색 소스의 등급(🟢/🟡/🟠/🔴)을 표시한다.
+- 🟠 이하는 설치 전 README + 코드 확인 여부를 "선택" 열에 명시한다.
 
 ### Step 3: MCP 서버 선정
 우선순위 2~3 소스에서 프로젝트에 필요한 MCP 서버를 선정한다.
@@ -111,10 +127,16 @@ rm -rf /tmp/ui-ux-pro-max-skill
 🔍 검색 결과:
    스킬: [발견 N개 / 해당 없음 M개]
    MCP: [발견 N개]
+   신뢰도: 🟢 공식/검증 N개 · 🟡 큐레이션 N개 · 🟠 커뮤니티 N개
 
-   [검색 결과 테이블]
+   [검색 결과 테이블 (신뢰도 열 포함)]
 
    설치를 진행할까요?
+```
+
+🟠 커뮤니티 스킬이 포함된 경우 추가 안내:
+```
+⚠️ 🟠 표시 스킬은 자동 수집된 커뮤니티 스킬입니다. README와 코드를 확인한 뒤 설치 여부를 결정하세요.
 ```
 
 ### Step 5: 설치
@@ -135,7 +157,10 @@ rm -rf /tmp/vive-md /tmp/skills-* /tmp/ui-ux-pro-max-skill
 - IMPORTANT: 외부 스킬 설치 전 반드시 사용자 확인. 자동 설치 금지.
 - 같은 세션에서 이미 클론한 소스는 재클론하지 않는다.
 - 악의적 코드 의심 시 설치하지 않고 사용자에게 경고.
-- 설치 후 decisions.md에 "어떤 스킬/MCP를 왜 설치했는지" 기록.
+- 설치 후 decisions.md에 "어떤 스킬/MCP를 왜 설치했는지 + 신뢰 등급" 기록.
+- 🟢/🟡 스킬: 사용자 확인 후 바로 설치.
+- 🟠 스킬: README + 코드 확인 후 설치. 확인 결과를 사용자에게 요약 보고.
+- 🔴 스킬: 설치 비권장. "업데이트 없음/출처 불명" 리스크를 사용자에게 명시적으로 고지 후, 사용자가 명시적으로 요청할 때만 설치.
 
 ## 이 스킬의 호출 시점
 
