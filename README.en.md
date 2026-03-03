@@ -22,16 +22,22 @@ One-stop project-tailored setup with Optimized PBS — from Plan to Build to Shi
 
 ## Who Is This Workflow For?
 
-- You know a good project plan matters, but don't know what to write
-- CLAUDE.md, subagents, skills, MCP — you don't know how to set them up
-- You want more than just setup — you want build guidance every session based on your plan
-- You lose context every time a session changes and keep repeating mistakes
+A workflow for those who want refined planning, plan-based tailored setup, and ironclad security — all in one.
+
+- You know a good project plan matters, but don't know where to start
+- You find it hard to decide the technical specs for your project
+  - Sequential, subagents, or team mode — you don't know which to pick
+  - You're not sure which skills and MCPs your project actually needs
+  - You want ironclad security settings regardless of project type
+  - You can't decide whether CLAUDE.md should be 58 lines or 500 lines
+- You want automated, tailored setup based on your plan and technical specs
+- You want to maintain full context throughout the build process with step-by-step guidance
 
 ---
 
 ## How Does It Work?
 
-Follow the Optimized PBS workflow — 5 commands in order, and your project setup and build are complete.
+Follow the 5 commands in Optimized PBS order, and your project-tailored planning through build and security are complete.
 
 0. **`/launchpad:guide`** — Onboarding: full workflow overview (first time)
 1. **`/launchpad:plan`** — Plan creation: generate a project plan through a structured interview
