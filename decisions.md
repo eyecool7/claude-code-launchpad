@@ -51,3 +51,14 @@
 - **이유**: 현재 프로젝트에서 버튼 클릭 후 시각적 피드백이 전혀 없어 사용자가 동작 여부를 인지 못함
 - **변경**: design-tokens.md에 Action Feedback 섹션 추가, 컨피규레이터에서 데모 버튼으로 시연
 - **관련 파일**: `plugins/launchpad/commands/design.md`
+
+## 2026-03-05: /launchpad:design을 Personality 기반 시스템으로 전면 재설계
+- **결정**: CSS 변수 컨피규레이터 방식을 폐기하고, Design Personality → 안전 조정 → design-rules 생성 방식으로 교체
+- **이유**: CSS 값(#0693E3, shadow 8px)은 Claude Code가 판단 기준으로 쓰기 어려움. "어떻게 짜야 하는가"를 판단하는 규칙 파일이 필요. 또한 개별 속성을 자유 조합하면 디자인이 망가질 수 있어서, Personality별로 잠금/조정을 분리하여 "어떻게 조합해도 괜찮은 것들"만 열어줌
+- **변경**: design.md 커맨드 전면 재작성 + `templates/design-rules/` 하위에 5개 Personality × 6개 파일 = 30개 템플릿 생성
+- **구조**:
+  - Level 1: Personality 선택 (Editorial Authority / Brutalist Raw / Tech Precision / Organic Warm / Luxury Minimal)
+  - Level 2: 각 Personality 안 3가지 안전 조정 (잠금 항목은 불변)
+  - Level 3: 브랜드색 오버라이드 + 다크모드
+- **출력**: `.claude/skills/design-rules/` 디렉토리에 00-personality ~ 05-components 6개 마크다운 파일
+- **관련 파일**: `plugins/launchpad/commands/design.md`, `plugins/launchpad/templates/design-rules/`

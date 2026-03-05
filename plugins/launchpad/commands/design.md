@@ -1,432 +1,532 @@
+# /launchpad:design
+
+프로젝트의 디자인 DNA를 결정합니다.
+개별 속성이 아닌 **Personality → 안전한 조정** 2단계로 진행합니다.
+
 ---
-description: 프론트엔드 디자인 방향 수립. 인터랙티브 프리뷰로 무드·팔레트·효과 선택 → design-tokens.md 생성. 디자인, design, 스타일, theme, 테마 시 사용.
----
 
-# 프론트엔드 디자인 수립
+## 실행 흐름
 
-프로젝트의 시각적 정체성을 정하고, 빌드 세션에서 참조할 `design-tokens.md`를 생성한다.
-setup 직후, build 전에 한 번 실행한다. 재실행 시 기존 토큰을 덮어쓴다.
+### STEP 1 — Personality 선택
 
-**전제 조건:** `/launchpad:setup` 완료 상태. `CLAUDE.md`와 `project-plan.md` 존재.
-
-**활용 스킬:**
-- `frontend-design` — 디자인 기본 가이드 + 코드 생성
-- `impeccable` — 17개 전문 디자인 커맨드 (팔레트, 타이포그래피, 모션 등)
-- `theme-factory` — 큐레이팅된 프리셋 테마로 빠른 시작
-
-## Step 0: 디자인 모드 선택
-
-AskUserQuestion으로 사용자에게 디자인 방식을 묻는다:
+아래 5가지 중 하나를 선택하게 안내한다.
+각 옵션은 이름 + 한 줄 설명 + 대표 키워드만 보여준다. 예시 사이트 언급은 하지 않는다.
 
 ```
-프론트엔드 디자인을 설정합니다. 어떤 방식으로 진행할까요?
+어떤 디자인 성격을 원하시나요?
 
-1. 기본 세팅 (화이트/블랙) — 디자인 없이 바로 빌드. 나중에 다시 실행 가능
-2. 디자인 컨피규레이터 — 브라우저에서 무드·컬러·폰트를 직접 선택
+A. Editorial Authority
+   절제된 권위감. 여백이 말하고, 타입이 구조를 만든다.
+   → 여백 / 세리프 헤드라인 / 모노크롬 + 포인트 1색 / 하프톤 가능
+
+B. Brutalist Raw
+   날것의 충격. 규칙을 알고 의도적으로 깬다.
+   → 강한 대비 / 하드 섀도 / 굵은 테두리 / 비대칭 그리드
+
+C. Tech Precision
+   데이터가 미학이다. 모든 요소는 기능을 따른다.
+   → 모노스페이스 / 딥 다크 / 미세한 그리드선 / 색 최소화
+
+D. Organic Warm
+   손의 온기. 스크린이지만 만질 수 있을 것 같은 느낌.
+   → 곡선 / 종이 질감 / 크림·어스톤 / 아날로그 타이포
+
+E. Luxury Minimal
+   있는 듯 없는 듯. 침묵이 럭셔리다.
+   → 극단적 여백 / 얇은 세리프 / 골드·실버 포인트 / 마이크로 디테일
 ```
 
-### 선택 1: 기본 세팅
+사용자가 선택하면 STEP 2로 진행한다.
 
-아래 기본 토큰으로 `design-tokens.md`를 즉시 생성하고 **Step 4 빌드 연동**으로 건너뛴다.
+---
+
+### STEP 2 — 안전한 조정 옵션 제시
+
+선택된 Personality에 따라 **아래 해당 블록만** 보여준다.
+각 항목은 라디오 선택지처럼 A/B/C 형태로 제시한다.
+설명은 짧게. 기술 용어 최소화.
+
+---
+
+#### A. Editorial Authority 선택 시
+
+```
+좋아요. Editorial Authority 안에서 3가지를 정합니다.
+
+1. 색온도
+   A) 차갑게 — 블루·그레이 계열, 날카롭고 현대적
+   B) 따뜻하게 — 크림·세피아 계열, 클래식하고 진중함
+
+2. 밀도
+   A) Airy — 넓은 여백, 요소가 숨 쉬는 느낌
+   B) Compact — 타이트한 그리드, 더 많은 정보 노출
+
+3. 텍스처
+   A) Clean — 텍스처 없음, 완전히 플랫
+   B) Subtle — 미세한 노이즈 또는 그레인
+   C) Expressive — 하프톤 또는 리소그래프 느낌
+
+[잠금 — 변경 불가]
+- 타입: 세리프 헤드라인 + 산세리프 본문 (대비가 Editorial의 핵심)
+- 색상 개수: 메인 1색 + 포인트 1색 이하
+- 그림자: Flat 또는 Hard shadow만 (Soft shadow 없음)
+```
+
+---
+
+#### B. Brutalist Raw 선택 시
+
+```
+좋아요. Brutalist Raw 안에서 3가지를 정합니다.
+
+1. 배경
+   A) 백지 위 — 흰 배경, 검은 요소가 충돌
+   B) 역전 — 검은 배경, 흰/원색 요소
+
+2. 포인트 색
+   A) 원색 — 빨강, 노랑, 파랑 중 1색
+   B) 무채색만 — 흑백으로만 승부
+
+3. 그리드 파괴 강도
+   A) Mild — 의도적 비대칭이지만 읽기 편함
+   B) Full — 요소가 겹치고, 넘치고, 깨짐
+
+[잠금 — 변경 불가]
+- 그림자: Hard shadow만 (4px~8px solid offset, blur 없음)
+- 테두리: 굵은 solid border (2px 이상)
+- 폰트: 임팩트 있는 굵은 산세리프 (얇은 폰트 없음)
+- 모서리: 0px (완전한 직각만)
+```
+
+---
+
+#### C. Tech Precision 선택 시
+
+```
+좋아요. Tech Precision 안에서 3가지를 정합니다.
+
+1. 배경 모드
+   A) Dark — 딥 다크 배경 (개발 툴 느낌)
+   B) Light — 흰 배경 + 그레이 그리드선
+
+2. 포인트 색
+   A) Terminal Green — 클래식 터미널 (#00FF41 계열)
+   B) Electric Blue — 데이터 시각화 느낌
+   C) Amber — 레트로 모니터 느낌
+
+3. 정보 밀도
+   A) Focused — 핵심만, 많은 여백
+   B) Dense — 데이터 대시보드처럼 빽빽하게
+
+[잠금 — 변경 불가]
+- 폰트: 모노스페이스 헤드라인 필수
+- 그림자: 없음 또는 glow만 (박스 섀도 없음)
+- 모서리: 0~2px (날카롭게)
+- 애니메이션: 없음 또는 타이핑 커서만
+```
+
+---
+
+#### D. Organic Warm 선택 시
+
+```
+좋아요. Organic Warm 안에서 3가지를 정합니다.
+
+1. 질감 강도
+   A) Subtle — 아주 미세한 종이 느낌
+   B) Tactile — 확실히 느껴지는 질감
+
+2. 색 팔레트
+   A) Cream & Ink — 크림 배경 + 진한 잉크색
+   B) Earth — 테라코타·올리브·베이지 조합
+   C) Sage — 세이지 그린 + 오프화이트
+
+3. 곡선 강도
+   A) Soft — 살짝 둥근 모서리 (8~16px)
+   B) Flowing — 물방울·꽃잎 형태의 유기적 곡선
+
+[잠금 — 변경 불가]
+- 폰트: 손글씨 느낌의 세리프 또는 인쇄체
+- 그림자: 없음 또는 따뜻한 색상의 subtle shadow
+- 그리드: 정렬보다 흐름 우선 (완벽한 열 정렬 금지)
+```
+
+---
+
+#### E. Luxury Minimal 선택 시
+
+```
+좋아요. Luxury Minimal 안에서 3가지를 정합니다.
+
+1. 배경
+   A) Pure White — 순백, 아무것도 없는 캔버스
+   B) Off-Black — 거의 검정이지만 완전한 검정은 아님 (#0A0A0A)
+
+2. 포인트 소재
+   A) Gold — 얇은 골드 선, 골드 텍스트
+   B) Silver — 차가운 실버, 메탈릭
+   C) No accent — 포인트 없이 타이포만으로
+
+3. 타이포 강도
+   A) Whisper — 아주 얇고 작게, 있는 듯 없는 듯
+   B) Statement — 하나만 크게, 나머지는 아주 작게
+
+[잠금 — 변경 불가]
+- 폰트: 얇은 세리프 필수 (Light ~ Regular weight만)
+- 여백: 최소 섹션 패딩 120px (타협 없음)
+- 색상: 2색 이하 (포인트 포함)
+- 애니메이션: 없음 또는 0.8s 이상의 아주 느린 페이드만
+```
+
+---
+
+### STEP 3 — 브랜드 예외 처리
+
+```
+마지막으로 2가지만 확인합니다.
+
+1. 브랜드 색상이 이미 있나요?
+   있다면: 어떤 색인가요? (헥스코드 또는 설명)
+   → 포인트 색을 이 색으로 오버라이드합니다.
+   없다면: Personality 기본값을 사용합니다.
+
+2. 다크모드가 필요한가요?
+   예 / 아니오
+```
+
+---
+
+### STEP 4 — 결과 요약 출력 후 확인
+
+선택 내용을 아래 형식으로 요약 출력한다.
+
+```
+🎨 디자인 DNA 확정
+
+Personality: Editorial Authority
+색온도: 차갑게
+밀도: Airy
+텍스처: Expressive (하프톤)
+브랜드색: 없음 (기본값 사용)
+다크모드: 아니오
+
+[잠금]
+타입 대비: 세리프 헤드라인 + 산세리프 본문
+색상 수: 2색 이하
+그림자: Flat/Hard only
+
+이 내용으로 design-rules를 생성할까요?
+```
+
+확인 받으면 STEP 5 실행.
+
+---
+
+### STEP 5 — design-rules 파일 생성
+
+`.claude/skills/design-rules/` 디렉토리를 생성하고 아래 로직에 따라 6개 파일을 출력한다.
+
+---
+
+#### 생성 로직 개요
+
+```
+1. 선택된 Personality의 템플릿 파일 6개를 베이스로 읽는다
+2. STEP 2에서 받은 조정값을 해당 파일의 특정 섹션에 오버라이드한다
+3. STEP 3의 브랜드색/다크모드 설정을 02-color.md에 추가 반영한다
+4. 최종 파일을 .claude/skills/design-rules/ 에 쓴다
+```
+
+---
+
+#### 각 Personality별 오버라이드 맵
+
+아래는 STEP 2 선택값이 어느 파일의 어느 부분을 바꾸는지 명시한다.
+템플릿에 없는 내용은 추가하고, 충돌하는 내용은 선택값으로 덮어쓴다.
+
+---
+
+##### A. Editorial Authority 오버라이드 맵
+
+**조정 1: 색온도 → `02-color.md` 팔레트 섹션 오버라이드**
+
+```
+차갑게 선택 시:
+  Background: #F8F9FA (쿨 그레이)
+  Text Primary: #0F1117 (쿨 다크)
+  Accent 방향: 딥 블루/인디고 계열 (#1A1AFF / #2D3BFF)
+  Surface: #F0F2F5
+
+따뜻하게 선택 시:
+  Background: #FAF7F2 (크림)
+  Text Primary: #1A1208 (웜 다크)
+  Accent 방향: 버건디/브라운 계열 (#8B2A2A / #6B4226)
+  Surface: #F2EDE4
+```
+
+**조정 2: 밀도 → `03-space.md` 밀도 설정 섹션 오버라이드**
+
+```
+Airy 선택 시:
+  섹션 패딩: 96~128px
+  카드 패딩: 32px
+  요소 간 최소 간격: 24px
+  본문 max-width: 680px
+
+Compact 선택 시:
+  섹션 패딩: 48~64px
+  카드 패딩: 20px
+  요소 간 최소 간격: 16px
+  본문 max-width: 800px
+```
+
+**조정 3: 텍스처 → `04-surface.md` 텍스처 섹션 오버라이드**
+
+```
+Clean 선택 시:
+  텍스처 없음. 배경은 단색만.
+  04-surface.md의 "텍스처: Expressive" 섹션 전체 제거 후 아래로 대체:
+  "이 프로젝트는 텍스처를 사용하지 않는다. 배경은 항상 단색이다."
+
+Subtle 선택 시:
+  배경에 CSS noise 적용, opacity 0.03~0.04
+  구현: background-image + SVG feTurbulence 또는 noise PNG
+
+Expressive 선택 시:
+  하프톤 패턴 적용 (템플릿 기본값 유지)
+  이미지 처리: 흑백 + 하프톤 오버레이 (mix-blend-mode: multiply)
+```
+
+---
+
+##### B. Brutalist Raw 오버라이드 맵
+
+**조정 1: 배경 → `02-color.md` 팔레트 섹션 오버라이드**
+
+```
+백지 위 선택 시:
+  Background: #FFFFFF
+  Text/구조: #000000
+  Hard shadow 색: #000000
+
+역전 선택 시:
+  Background: #000000
+  Text/구조: #FFFFFF
+  Hard shadow 색: #FFFFFF
+  (모든 컴포넌트 색상 반전 적용)
+```
+
+**조정 2: 포인트 색 → `02-color.md` Accent 섹션 오버라이드**
+
+```
+원색 선택 시 → 원색 3가지 중 사용자가 고른 것:
+  Raw Red: --accent: #FF0000
+  Electric Yellow: --accent: #FFE600 (텍스트는 #000000)
+  Brutal Blue: --accent: #0000FF
+
+무채색만 선택 시:
+  Accent 없음. 02-color.md의 Accent 섹션을 아래로 대체:
+  "이 프로젝트는 Accent 색을 사용하지 않는다.
+   모든 강조는 크기, 굵기, 위치로만 표현한다."
+```
+
+**조정 3: 그리드 파괴 강도 → `03-space.md` 그리드 파괴 섹션 오버라이드**
+
+```
+Mild 선택 시: 03-space.md에 "Mild 모드 활성" 명시, Full 모드 관련 내용 제거
+Full 선택 시: 03-space.md에 "Full 모드 활성" 명시, 겹침/overflow 예시 유지
+```
+
+---
+
+##### C. Tech Precision 오버라이드 맵
+
+**조정 1: 배경 모드 → `02-color.md` + `04-surface.md` 오버라이드**
+
+```
+Dark 선택 시:
+  02-color.md: Dark 모드 팔레트를 기본값으로 지정, Light 팔레트는 주석 처리
+  04-surface.md: 배경 텍스처 도트 패턴 색상을 Dark 팔레트 border 색으로
+
+Light 선택 시:
+  02-color.md: Light 모드 팔레트를 기본값으로 지정, Dark 팔레트는 주석 처리
+  04-surface.md: 배경 그리드선 색상을 Light 팔레트 기준으로
+```
+
+**조정 2: 포인트 색 → `02-color.md` Accent 섹션 오버라이드**
+
+```
+Terminal Green 선택 시: --accent: #00FF41 활성화, 나머지 주석
+Electric Blue 선택 시:  --accent: #3B82F6 활성화, 나머지 주석
+Amber 선택 시:          --accent: #F59E0B 활성화, 나머지 주석
+```
+
+**조정 3: 정보 밀도 → `03-space.md` 밀도 섹션 오버라이드**
+
+```
+Focused 선택 시: Focused 모드 내용 유지, Dense 섹션 제거
+Dense 선택 시:   Dense 모드 내용 유지, Focused 섹션 제거
+                 + 05-components.md 카드 패딩을 16px로 오버라이드
+```
+
+---
+
+##### D. Organic Warm 오버라이드 맵
+
+**조정 1: 질감 강도 → `04-surface.md` 텍스처 섹션 오버라이드**
+
+```
+Subtle 선택 시:
+  Subtle 모드 CSS 코드 유지
+  텍스처 opacity 범위: 0.03~0.04
+
+Tactile 선택 시:
+  Tactile 모드 CSS 코드 유지
+  텍스처 opacity 범위: 0.08~0.12
+  + 00-personality.md에 "이 프로젝트의 질감은 확실히 느껴져야 한다" 추가
+```
+
+**조정 2: 색 팔레트 → `02-color.md` 팔레트 섹션 오버라이드**
+
+```
+Cream & Ink 선택 시: 팔레트 A 활성화, B·C 제거
+Earth 선택 시:       팔레트 B 활성화, A·C 제거
+Sage 선택 시:        팔레트 C 활성화, A·B 제거
+
++ 선택된 팔레트의 Text Primary RGB 값으로
+  04-surface.md와 05-components.md의 rgba([Text Primary RGB], ...) 자리를 채운다
+```
+
+**조정 3: 곡선 강도 → `03-space.md` + `05-components.md` 오버라이드**
+
+```
+Soft 선택 시:
+  03-space.md: "곡선 강도: Soft (8~16px)" 명시
+  05-components.md: 모든 border-radius를 Soft 값으로 통일
+    카드: 16px / 버튼: 24px / 인풋: 10px
+
+Flowing 선택 시:
+  03-space.md: "곡선 강도: Flowing (유기적 곡선)" 명시
+  05-components.md: 모든 border-radius를 Flowing 값으로 통일
+    카드: 24px 8px 24px 8px / 버튼: 40% 60% 60% 40% / 50%
+  04-surface.md: 섹션 divider에 clip-path 웨이브 추가
+```
+
+---
+
+##### E. Luxury Minimal 오버라이드 맵
+
+**조정 1: 배경 → `02-color.md` 팔레트 섹션 오버라이드**
+
+```
+Pure White 선택 시: Pure White 모드 팔레트 활성화, Off-Black 제거
+Off-Black 선택 시:  Off-Black 모드 팔레트 활성화, Pure White 제거
+```
+
+**조정 2: 포인트 소재 → `02-color.md` + `04-surface.md` + `05-components.md` 오버라이드**
+
+```
+Gold 선택 시:
+  02-color.md: Gold 섹션 활성화
+  04-surface.md: .accent-line, .accent-label 디테일 유지
+  05-components.md: 버튼 border-color를 Gold Accent로
+
+Silver 선택 시:
+  02-color.md: Silver 섹션 활성화
+  (나머지 동일 구조)
+
+No accent 선택 시:
+  02-color.md: Accent 섹션 전체를 아래로 대체:
+  "이 프로젝트는 포인트 색을 사용하지 않는다.
+   모든 위계는 폰트 크기, 자간, 여백으로만 표현한다."
+  04-surface.md: .accent-line 제거
+  05-components.md: 모든 버튼을 Text Primary 색 기준으로
+```
+
+**조정 3: 타이포 강도 → `01-typography.md` 오버라이드**
+
+```
+Whisper 선택 시: Whisper 모드 스케일 활성화, Statement 제거
+Statement 선택 시: Statement 모드 스케일 활성화, Whisper 제거
+```
+
+---
+
+#### 브랜드색 오버라이드 (STEP 3)
+
+브랜드색이 있는 경우 `02-color.md` Accent 섹션에 아래를 추가:
 
 ```markdown
-# Design Tokens
+## ⚠️ 브랜드 오버라이드
 
-## Identity
-- Mood: Default
-- Surface: Flat
-- Motion: None (CSS only)
+이 프로젝트의 Accent 색은 브랜드 색상으로 고정됩니다.
+--accent: [입력받은 헥스코드]
 
-## Palette
-| Role | Light | Dark |
-|------|-------|------|
-| primary | #18181B | #FAFAFA |
-| secondary | #71717A | #A1A1AA |
-| accent | #3B82F6 | #60A5FA |
-| neutral-50 | #FAFAFA | #18181B |
-| neutral-100 | #F4F4F5 | #27272A |
-| neutral-200 | #E4E4E7 | #3F3F46 |
-| neutral-700 | #3F3F46 | #D4D4D8 |
-| neutral-900 | #18181B | #FAFAFA |
-| success | #16A34A | #4ADE80 |
-| warning | #D97706 | #FBBF24 |
-| error | #DC2626 | #F87171 |
-| info | #2563EB | #60A5FA |
-
-## Typography
-- Heading: Inter (weight: 600)
-- Body: Inter (weight: 400)
-- Mono: JetBrains Mono
-- Scale: 16px / 1.25
-
-## Spacing
-- Unit: 4px
-- Radius: sm/md/lg = 4px/8px/12px
-
-## Shadows
-none — border only (1px solid neutral-200)
-
-## Motion
-- Duration: 0
-- Easing: none
-- Patterns: none
-
-## Action Feedback
-- Level: Minimal
-- Loading: 텍스트 → "처리 중..." (disabled)
-- Success: 텍스트 → "완료" (1.5초 후 복귀)
-- Error: 텍스트 → "실패" (error 색상)
-- Toast: 없음
-
-## Component Conventions
-- Button: solid bg primary, white text, 1px border, no shadow
-- Card: 1px border neutral-200, bg white, no shadow
-- Input: 1px border neutral-200, focus ring accent, bg white
+Personality 기본 Accent 색 대신 이 색을 모든 곳에 사용합니다.
+브랜드색이 Personality 규칙과 충돌할 경우 (예: Luxury Minimal에 채도 높은 색),
+브랜드색을 우선하되 사용 빈도를 최소화합니다.
 ```
 
-안내 후 완료:
-```
-기본 디자인 토큰이 설정되었습니다. (화이트/블랙, 모션 없음)
-나중에 `/launchpad:design`을 다시 실행하면 커스터마이징할 수 있습니다.
-```
+#### 다크모드 설정 (STEP 3)
 
-### 선택 2: 디자인 컨피규레이터
-
-아래 Step 1로 진행한다.
-
-## Step 1: 인터랙티브 디자인 컨피규레이터 생성
-
-`.claude/design-preview.html`을 생성하여 브라우저에서 연다. 사용자가 시각적으로 디자인을 조합하고 확인할 수 있는 **라이브 프리뷰 도구**다.
-
-### 레이아웃
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  🎨 Design Configurator            [Dark/Light] [확정]  │
-├──────────────────┬──────────────────────────────────────┤
-│  컨트롤 패널      │  라이브 프리뷰                        │
-│  (스크롤 가능)     │  (실시간 반영)                        │
-│                  │                                      │
-│  ▸ 무드 선택      │  ┌──────────────────────────────┐   │
-│   ○ Clean Prof.  │  │  Heading Sample (h1)         │   │
-│   ● Bold Creat.  │  │  Body text sample paragraph  │   │
-│   ○ Warm Friend. │  │                              │   │
-│   ○ Min. Elegant │  │  [Primary Btn] [Secondary]   │   │
-│                  │  │  [Ghost Btn]                 │   │
-│  ▸ 표면 선택      │  │                              │   │
-│   ○ Flat         │  │  ┌─Card─┐  ┌─Card─┐         │   │
-│   ● Soft Shadow  │  │  │      │  │      │         │   │
-│   ○ Glass        │  │  │      │  │      │         │   │
-│   ○ Neumorphism  │  │  └──────┘  └──────┘         │   │
-│                  │  │                              │   │
-│  ▸ 모션 선택      │  │  [Input field    ]           │   │
-│   ○ None         │  │  ✓ Success  ⚠ Warn  ✕ Error │   │
-│   ● Subtle       │  │                              │   │
-│   ○ Expressive   │  │  ┌─Palette Swatches────────┐ │   │
-│                  │  │  │ ■ ■ ■ ■ ■  ■ ■ ■ ■     │ │   │
-│  ▸ Primary 컬러   │  │  └────────────────────────┘ │   │
-│   [#3B82F6] 🎨   │  └──────────────────────────────┘   │
-│                  │                                      │
-│  ▸ 폰트 선택      │                                      │
-│   Heading: [▼]   │                                      │
-│   Body:    [▼]   │                                      │
-│                  │                                      │
-│  ▸ Radius        │                                      │
-│   ○ Sharp (2px)  │                                      │
-│   ● Rounded (8px)│                                      │
-│   ○ Pill (999px) │                                      │
-└──────────────────┴──────────────────────────────────────┘
-```
-
-### 컨트롤 패널 (왼쪽)
-
-**라디오 버튼 그룹:**
-
-| 그룹 | 옵션 | 변경 시 프리뷰 반영 |
-|------|------|-------------------|
-| 무드 (Mood) | Clean Professional, Warm Friendly, Bold Creative, Minimal Elegant | 전체 분위기 프리셋 (컬러 팔레트 + 폰트 + 여백 비율) |
-| 표면 (Surface) | Flat, Soft Shadow, Glassmorphism, Neumorphism | 카드·버튼·인풋의 그림자/배경 |
-| 모션 (Motion) | None, Subtle, Expressive | hover/click 시 애니메이션 강도 |
-| Radius | Sharp (2px), Rounded (8px), Pill (999px) | 모든 컴포넌트 모서리 |
-| 액션 피드백 (Feedback) | Minimal, Standard, Rich | 버튼 클릭 후 상태 표현 방식 |
-
-**컬러 피커:**
-
-| 항목 | 동작 |
-|------|------|
-| Primary | `<input type="color">` + HEX 직접 입력. 변경 시 Secondary/Accent 자동 파생, 프리뷰 즉시 반영 |
-
-Secondary, Accent은 Primary에서 HSL 변환으로 자동 파생하되, 개별 오버라이드 토글 제공.
-
-**폰트 페어링 선택:**
-
-무드 선택 시 추천 페어링이 자동 세팅되지만, 드롭다운으로 개별 변경 가능.
-
-| 카테고리 | Heading 후보 | Body 후보 | 적합 무드 |
-|---------|-------------|----------|----------|
-| **모던 산세리프** | Inter, Manrope, Space Grotesk | Inter, Source Sans 3, IBM Plex Sans | Clean Professional |
-| **기하학 산세리프** | Poppins, Montserrat, Outfit | Noto Sans KR, Lato, Open Sans | Warm Friendly |
-| **세리프 믹스** | Playfair Display, DM Serif Display, Merriweather | Source Serif 4, Crimson Text, Lora | Minimal Elegant |
-| **특징적 디스플레이** | Space Grotesk, Sora, Clash Display | Inter, Pretendard, IBM Plex Sans | Bold Creative |
-| **한국어 특화** | Pretendard, Noto Sans KR | Pretendard, Noto Sans KR | 전체 (한국어 콘텐츠) |
-
-Mono (코드): JetBrains Mono, Fira Code, IBM Plex Mono (고정)
-
-폰트 선택 시 Google Fonts CDN을 동적 로드하여 프리뷰에 즉시 반영. 한국어 폰트는 한글 샘플 텍스트도 함께 표시.
-
-### 라이브 프리뷰 (오른쪽)
-
-컨트롤 변경 시 **JavaScript로 CSS 변수를 즉시 업데이트**하여 프리뷰를 실시간 반영한다.
-
-**프리뷰 컴포넌트:**
-- Typography: h1, h2, h3, body paragraph, code block
-- Buttons: Primary, Secondary, Ghost, Destructive — 각각 default / hover / active / disabled 4가지 상태 표시
-- **Button 액션 데모**: "저장하기" 버튼을 클릭하면 선택한 피드백 스타일로 실제 상태 전환을 시연:
-  - idle → loading (스피너/텍스트 변경) → success (체크 아이콘/색상 변경) → idle 복귀
-  - idle → loading → error (에러 색상/흔들림) → idle 복귀
-- Cards: 2–3장 (이미지 placeholder + 제목 + 설명)
-- Form: Input + Label, Textarea, Select (focus/error/disabled 상태 포함)
-- Toast/Notification: 액션 완료 시 나타나는 알림 스타일 (위치: 우상단/하단중앙)
-- Status: Success/Warning/Error/Info 배지 + Alert
-- Palette 스와치: 모든 색상을 HEX 코드와 함께 블록으로 표시
-
-**Dark/Light 토글:** 우측 상단 토글 버튼. 다크모드 팔레트도 실시간 확인.
-
-### 액션 피드백 패턴
-
-사용자가 버튼을 누른 후 "작동했는지"를 인지하는 방식. 3단계 중 선택:
-
-| 레벨 | 버튼 상태 | 완료 알림 | 에러 표현 |
-|------|----------|----------|----------|
-| **Minimal** | 텍스트 → "처리 중..." (disabled) | 텍스트 → "완료" (1.5초 후 복귀) | 텍스트 → "실패" (빨간색) |
-| **Standard** | 스피너 아이콘 + disabled | Toast 알림 (우상단, 3초 후 사라짐) | Toast 에러 알림 + 버튼 흔들림 |
-| **Rich** | 스피너 + 프로그레스 바 + disabled | 버튼 → 체크 아이콘 변환 + Toast + 성공 사운드(선택) | 버튼 흔들림 + 에러 모달 + 재시도 버튼 |
-
-프리뷰에서 "저장하기" 데모 버튼을 클릭하면 선택한 레벨의 전체 플로우를 시연한다:
-`idle → loading (1.5초) → success (2초) → idle`
-
-각 피드백 레벨의 구현에 필요한 컴포넌트도 명시:
-
-| 레벨 | 필요 컴포넌트 |
-|------|-------------|
-| Minimal | 없음 (버튼 텍스트 변경만) |
-| Standard | Toast 컴포넌트, Spinner 아이콘 |
-| Rich | Toast, Spinner, Progress Bar, Modal, Icon 변환 애니메이션 |
-
-### 무드 프리셋
-
-무드를 선택하면 관련 값들이 한 번에 세팅된다 (사용자가 개별 오버라이드 가능):
-
-```javascript
-const PRESETS = {
-  'clean-professional': {
-    primary: '#3B82F6', surface: 'soft-shadow', motion: 'subtle',
-    radius: '8px', headingFont: 'Manrope', bodyFont: 'Inter',
-    monoFont: 'JetBrains Mono', feedback: 'standard',
-  },
-  'warm-friendly': {
-    primary: '#F59E0B', surface: 'soft-shadow', motion: 'subtle',
-    radius: '12px', headingFont: 'Poppins', bodyFont: 'Noto Sans KR',
-    monoFont: 'Fira Code', feedback: 'standard',
-  },
-  'bold-creative': {
-    primary: '#8B5CF6', surface: 'glassmorphism', motion: 'expressive',
-    radius: '16px', headingFont: 'Space Grotesk', bodyFont: 'Inter',
-    monoFont: 'JetBrains Mono', feedback: 'rich',
-  },
-  'minimal-elegant': {
-    primary: '#1F2937', surface: 'flat', motion: 'none',
-    radius: '2px', headingFont: 'Playfair Display', bodyFont: 'Source Serif 4',
-    monoFont: 'IBM Plex Mono', feedback: 'minimal',
-  },
-};
-```
-
-### 확정 버튼
-
-우측 상단 "확정" 버튼 클릭 시:
-1. 현재 선택 상태를 JSON으로 직렬화
-2. `.claude/design-config.json`에 저장 (Blob URL → download, 또는 localStorage 임시 저장)
-3. 화면에 "설정이 저장되었습니다. Claude Code로 돌아가세요." 메시지 표시
-
-**저장 방식:** 브라우저에서 로컬 파일 쓰기가 제한되므로, 두 가지 방식 중 택 1:
-- **방식 A (권장):** "확정" 클릭 → JSON을 `<textarea>`에 표시 + 클립보드 자동 복사. 사용자가 Claude에게 "확정했어" 라고 말하면 Claude가 클립보드에서 읽거나, 사용자가 붙여넣기.
-- **방식 B:** "확정" 클릭 → JSON 파일 다운로드 (`design-config.json`). Claude가 다운로드 폴더에서 읽음.
-
-### HTML 생성 규칙
-
-- **단일 파일.** `<style>` + `<script>` 인라인. 외부 의존성은 Google Fonts CDN만.
-- CSS 변수 기반: `--primary`, `--secondary`, `--accent`, `--neutral-50` ~ `--neutral-900`, `--success`, `--warning`, `--error`, `--info`, `--radius`, `--shadow`, `--font-heading`, `--font-body`
-- 반응형: 1200px 이상이면 좌우 분할, 미만이면 상하 분할 (컨트롤 위, 프리뷰 아래)
-- 팔레트 자동 파생: Primary HSL → Secondary (hue ±30), Accent (hue ±180, saturation ↑), Neutral (saturation 10%, lightness 5단계)
-
-### 브라우저 열기
-
-```bash
-open .claude/design-preview.html
-```
-
-사용자에게 안내:
-
-```
-디자인 컨피규레이터가 브라우저에서 열렸습니다.
-왼쪽에서 무드·컬러·폰트를 선택하면 오른쪽 프리뷰에 바로 반영됩니다.
-마음에 드는 조합을 찾으면 우측 상단 [확정] 버튼을 눌러주세요.
-```
-
-## Step 2: 설정 수신 + 효과 라이브러리 확정
-
-사용자가 "확정했어" (또는 JSON 붙여넣기)라고 하면:
-
-1. 확정된 설정 JSON을 파싱
-2. 모션 선택에 따른 효과 라이브러리를 확정한다:
-
-| 모션 선택 | 기본 추천 | 대안 |
-|-----------|----------|------|
-| None | CSS only | — |
-| Subtle | CSS transitions + `@starting-style` | Tailwind `animate-*` |
-| Expressive | Framer Motion | React Spring, Auto Animate |
-
-3. 사용자에게 라이브러리 추천을 간단히 안내하고 승인받는다.
-
-## Step 3: design-tokens.md 생성
-
-확정된 설정 JSON + 효과 라이브러리를 기반으로 `design-tokens.md`를 생성한다.
-**50–80줄, compact 포맷.** 빌드 세션에서 매번 참조하므로 간결해야 한다.
-
-### 파일 위치
-
-```
-.claude/design-tokens.md
-```
-
-### 파일 구조
+다크모드가 필요한 경우 `02-color.md` 끝에 추가:
 
 ```markdown
-# Design Tokens
+## 다크모드
 
-## Identity
-- Mood: {무드명}
-- Surface: {표면명}
-- Motion: {모션명} ({라이브러리명})
+이 프로젝트는 다크모드를 지원합니다.
+[Personality에 맞는 다크 팔레트 자동 생성]
 
-## Palette
-| Role | Light | Dark |
-|------|-------|------|
-| primary | #XXXXXX | #XXXXXX |
-| secondary | #XXXXXX | #XXXXXX |
-| accent | #XXXXXX | #XXXXXX |
-| neutral-50 | #XXXXXX | #XXXXXX |
-| neutral-100 | #XXXXXX | #XXXXXX |
-| neutral-200 | #XXXXXX | #XXXXXX |
-| neutral-700 | #XXXXXX | #XXXXXX |
-| neutral-900 | #XXXXXX | #XXXXXX |
-| success | #XXXXXX | #XXXXXX |
-| warning | #XXXXXX | #XXXXXX |
-| error | #XXXXXX | #XXXXXX |
-| info | #XXXXXX | #XXXXXX |
-
-## Typography
-- Heading: {폰트명} (weight: 600–700)
-- Body: {폰트명} (weight: 400)
-- Mono: {폰트명}
-- Scale: {base}px / {ratio} (예: 16px / 1.25)
-
-## Spacing
-- Unit: {N}px
-- Radius: {sm/md/lg} = {값}
-
-## Shadows
-{표면 스타일에 따른 그림자 정의. Flat이면 "none — border only"}
-
-## Motion
-- Duration: {fast/normal/slow} = {값}
-- Easing: {이징 함수}
-- Patterns: {주요 인터랙션 패턴 한 줄씩}
-
-## Action Feedback
-- Level: {Minimal/Standard/Rich}
-- Loading: {스피너 스타일 설명}
-- Success: {완료 표현 방식}
-- Error: {에러 표현 방식}
-- Toast: {위치, 지속시간} (Standard/Rich만)
-
-## Component Conventions
-- Button: {variant별 스타일 한 줄 요약 — primary/secondary/ghost/destructive}
-- Card: {카드 스타일 한 줄 요약}
-- Input: {인풋 스타일 한 줄 요약 — focus/error/disabled 포함}
+구현: prefers-color-scheme: dark 또는 .dark 클래스 기반
+모든 color 값은 CSS 변수로 관리하여 테마 전환을 지원합니다.
 ```
 
-### 생성 규칙
+---
 
-- Light/Dark 모드 모두 정의 (다크모드가 불필요해도 기본 제공)
-- CSS 변수명이 아닌 **역할 기반 이름** 사용 (구현 시 프레임워크에 맞게 변환)
-- 폰트는 Google Fonts에서 사용 가능한 것으로 선택
-- 80줄 초과 금지. 초과 시 Component Conventions를 줄여 조정
-
-## Step 3.5: [선택] Figma 미세 조정
-
-생성된 `design-tokens.md`를 사용자에게 보여준 후 안내한다:
+#### 실제 파일 생성 절차
 
 ```
-design-tokens.md가 생성되었습니다.
+1. mkdir -p .claude/skills/design-rules/
 
-이대로 빌드를 진행할 수 있습니다.
-Figma에서 미세 조정하고 싶으면:
-1. Figma Tokens Plugin (무료)으로 토큰을 JSON으로 import
-2. Figma에서 시각적으로 조정
-3. JSON export → design-tokens.md에 반영
+2. 선택된 Personality 템플릿 디렉토리에서 00~05 파일을 읽는다
+   → plugins/launchpad/templates/design-rules/[personality-name]/
 
-이 단계를 건너뛰어도 빌드에 영향 없습니다.
+3. 각 파일에 위의 오버라이드 맵을 적용한다
+   → 오버라이드 대상 섹션을 찾아 내용을 교체/추가/삭제
+
+4. 브랜드색·다크모드 설정을 02-color.md에 append한다
+
+5. 최종 6개 파일을 .claude/skills/design-rules/ 에 쓴다
 ```
 
-이 단계는 **안내만** 한다. 자동 실행하지 않는다.
-
-## Step 4: 빌드 연동
-
-### 4-1. rules/frontend/styles.md 업데이트
-
-`design-tokens.md`의 팔레트와 타이포그래피를 `.claude/rules/frontend/styles.md`에 반영한다.
-이미 파일이 있으면 Edit으로 업데이트, 없으면 생성.
-
-### 4-2. CLAUDE.md 핵심 경로에 추가
-
-CLAUDE.md의 핵심 경로 섹션에 `design-tokens.md` 경로를 추가한다:
+생성 완료 후 출력:
 
 ```
-.claude/design-tokens.md  # 디자인 토큰 (팔레트, 타이포, 모션)
+✅ design-rules 생성 완료
+
+.claude/skills/design-rules/
+├── 00-personality.md   [Personality 이름]
+├── 01-typography.md    [선택된 타이포 설정 요약]
+├── 02-color.md         [선택된 팔레트 + 브랜드색 여부]
+├── 03-space.md         [선택된 밀도 설정]
+├── 04-surface.md       [선택된 텍스처/질감 설정]
+└── 05-components.md    [Personality 컴포넌트 규칙]
+
+Claude Code가 컴포넌트를 짤 때 이 규칙들을 자동으로 참조합니다.
+변경하려면 /launchpad:design을 다시 실행하거나 파일을 직접 수정하세요.
+
+다음 단계: /launchpad:setup
 ```
 
-### 4-3. 정리
-
-`.gitignore`에 프리뷰 파일 추가:
-
-```
-.claude/design-preview.html
-.claude/design-config.json
-```
-
-### 4-4. 완료 안내
-
-```
-디자인 토큰이 설정되었습니다.
-
-| 항목 | 결과 |
-|------|------|
-| 무드 | {무드명} |
-| 표면 | {표면명} |
-| 모션 | {모션명} + {라이브러리명} |
-| Primary | {컬러코드} |
-| 폰트 | {Heading} / {Body} |
-| 파일 | .claude/design-tokens.md ({줄 수}줄) |
-
-`/launchpad:build`를 실행하면 이 토큰을 기반으로 UI를 구축합니다.
-```
+---
 
 ## 주의사항
 
-- 이 커맨드는 `design-preview.html`, `design-tokens.md`, `styles.md`를 생성·수정한다. 실제 UI 코드는 건드리지 않는다.
-- 빌드 세션에서 `frontend-design`, `impeccable`, `design-rules` 스킬이 이 토큰을 참조하여 코드를 생성한다.
-- 토큰을 변경하고 싶으면 이 커맨드를 재실행한다. 기존 파일을 덮어쓴다.
-- theme-factory 프리셋을 사용하면 무드 프리셋으로 빠르게 시작할 수 있다. 사용자가 "프리셋으로 하자"고 하면 theme-factory 스킬을 invoke하여 프리셋 목록을 보여준다.
-- design-preview.html은 단일 HTML 파일이며 빌드에 포함되지 않는다. 디자인 확인 용도로만 사용.
+- Personality 선택 전에 사용자에게 "좋은 선택"이나 "추천" 코멘트를 달지 않는다
+- STEP 2에서 잠금 항목은 절대 조정 옵션으로 열어주지 않는다
+- 파일 생성 시 CSS 변수 값보다 **판단 기준 문장** 위주로 작성한다
+- 브랜드색이 있을 경우 Personality의 색상 규칙과 충돌하면 경고 후 사용자 결정을 따른다
+- 오버라이드 적용 후 파일 안에서 모순되는 내용이 없는지 확인한다
+  (예: Compact 밀도를 골랐는데 본문에 "넓은 여백을 유지한다"는 문장이 남아있으면 삭제)
+- 템플릿의 "선택하지 않은 옵션" 관련 내용은 최종 파일에서 제거한다
+  (예: Organic Warm에서 Earth 팔레트를 골랐으면 Cream & Ink, Sage 팔레트 내용 삭제)
