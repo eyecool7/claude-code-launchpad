@@ -14,6 +14,86 @@ setup 직후, build 전에 한 번 실행한다. 재실행 시 기존 토큰을 
 - `impeccable` — 17개 전문 디자인 커맨드 (팔레트, 타이포그래피, 모션 등)
 - `theme-factory` — 큐레이팅된 프리셋 테마로 빠른 시작
 
+## Step 0: 디자인 모드 선택
+
+AskUserQuestion으로 사용자에게 디자인 방식을 묻는다:
+
+```
+프론트엔드 디자인을 설정합니다. 어떤 방식으로 진행할까요?
+
+1. 기본 세팅 (화이트/블랙) — 디자인 없이 바로 빌드. 나중에 다시 실행 가능
+2. 디자인 컨피규레이터 — 브라우저에서 무드·컬러·폰트를 직접 선택
+```
+
+### 선택 1: 기본 세팅
+
+아래 기본 토큰으로 `design-tokens.md`를 즉시 생성하고 **Step 4 빌드 연동**으로 건너뛴다.
+
+```markdown
+# Design Tokens
+
+## Identity
+- Mood: Default
+- Surface: Flat
+- Motion: None (CSS only)
+
+## Palette
+| Role | Light | Dark |
+|------|-------|------|
+| primary | #18181B | #FAFAFA |
+| secondary | #71717A | #A1A1AA |
+| accent | #3B82F6 | #60A5FA |
+| neutral-50 | #FAFAFA | #18181B |
+| neutral-100 | #F4F4F5 | #27272A |
+| neutral-200 | #E4E4E7 | #3F3F46 |
+| neutral-700 | #3F3F46 | #D4D4D8 |
+| neutral-900 | #18181B | #FAFAFA |
+| success | #16A34A | #4ADE80 |
+| warning | #D97706 | #FBBF24 |
+| error | #DC2626 | #F87171 |
+| info | #2563EB | #60A5FA |
+
+## Typography
+- Heading: Inter (weight: 600)
+- Body: Inter (weight: 400)
+- Mono: JetBrains Mono
+- Scale: 16px / 1.25
+
+## Spacing
+- Unit: 4px
+- Radius: sm/md/lg = 4px/8px/12px
+
+## Shadows
+none — border only (1px solid neutral-200)
+
+## Motion
+- Duration: 0
+- Easing: none
+- Patterns: none
+
+## Action Feedback
+- Level: Minimal
+- Loading: 텍스트 → "처리 중..." (disabled)
+- Success: 텍스트 → "완료" (1.5초 후 복귀)
+- Error: 텍스트 → "실패" (error 색상)
+- Toast: 없음
+
+## Component Conventions
+- Button: solid bg primary, white text, 1px border, no shadow
+- Card: 1px border neutral-200, bg white, no shadow
+- Input: 1px border neutral-200, focus ring accent, bg white
+```
+
+안내 후 완료:
+```
+기본 디자인 토큰이 설정되었습니다. (화이트/블랙, 모션 없음)
+나중에 `/launchpad:design`을 다시 실행하면 커스터마이징할 수 있습니다.
+```
+
+### 선택 2: 디자인 컨피규레이터
+
+아래 Step 1로 진행한다.
+
 ## Step 1: 인터랙티브 디자인 컨피규레이터 생성
 
 `.claude/design-preview.html`을 생성하여 브라우저에서 연다. 사용자가 시각적으로 디자인을 조합하고 확인할 수 있는 **라이브 프리뷰 도구**다.
