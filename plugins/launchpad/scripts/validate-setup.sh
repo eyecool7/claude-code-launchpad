@@ -35,15 +35,20 @@ else
   fi
 
   # --- 3a. TODO/Placeholder 잔존 체크 ---
+  # 코드블록(``` ~ ```)과 인라인 코드(`...`) 안의 내용은 제외한다.
+  # "TODO 형식" 같은 규칙 설명도 제외 — 실제 미완성 마커만 감지.
+  # 감지 대상: "<!-- TODO:", "// TODO:", "# TODO:", 독립 "TODO" (형식/주석 설명 문맥 제외)
   TODO_COUNT=0
   _check_todo() {
     local f="$1"
     if [ -f "$f" ]; then
       local cnt=0
-      cnt=$(grep -ciE '(TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' "$f" 2>/dev/null) || true
+      # awk: 1) 코드블록 제거  2) 인라인 코드 제거  3) 미완성 마커 패턴만 검사
+      # 패턴: "<!-- TODO" / "// TODO" / "# TODO" / 줄 시작 TODO / FIXME / PLACEHOLDER / 한국어
+      cnt=$(awk '/^```/{skip=!skip; next} !skip{gsub(/`[^`]+`/,""); print}' "$f" | grep -ciE '(<!-+\s*TODO|//\s*TODO|#\s*TODO|^\s*TODO\b|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' 2>/dev/null) || true
       if [ "$cnt" -gt 0 ]; then
         echo "❌ TODO/Placeholder found in $(basename "$f"):"
-        grep -niE '(TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)' "$f" | head -3
+        awk '/^```/{skip=!skip; next} !skip{gsub(/`[^`]+`/,""); if ($0 ~ /(<!-+[ \t]*TODO|\/\/[ \t]*TODO|#[ \t]*TODO|^[ \t]*TODO|FIXME|PLACEHOLDER|여기에 작성|여기를 채)/) print NR": "$0}' "$f" | head -3
         TODO_COUNT=$((TODO_COUNT + cnt))
       fi
     fi

@@ -186,55 +186,44 @@ CLAUDE.md 생성 핵심 규칙:
 
 #### 4-2. .claude/ 설정 생성
 
-`$PLUGIN_ROOT/templates/` 의 템플릿에서 복사 후 프로젝트에 맞게 커스터마이징:
+**⚡ 컨텍스트 절약을 위한 2단계 생성:**
 
-**{{변수}} 치환 원칙:** Step 1의 analyze-project.sh 출력값을 사용한다.
-- `{{PKG_MANAGER}}` → 락파일 감지 결과 (bun.lockb → `bun`, pnpm-lock.yaml → `pnpm`, package-lock.json → `npm`)
-- `{{TEST_CMD}}` → 테스트 프레임워크 감지 결과 (vitest → `bun test`, jest → `npm test` 등)
-- `{{TYPECHECK_CMD}}` → TypeScript 있으면 `{{PKG_MANAGER}} run typecheck`, 없으면 제거
-- `{{LINT_CMD}}` → 포매터 감지 결과 (biome → `biome check`, eslint → `eslint .` 등)
+**1단계 — 일괄 생성 (Bash 스크립트):**
+"그대로 복사" 14개 + "변수 치환" 5개 = 19개 파일을 스크립트 한 번으로 처리한다.
+이 파일들은 Claude가 Read할 필요 없이 자동 생성된다.
+
+```bash
+HAS_DB=false  # DB 사용 시 true
+bash "$PLUGIN_ROOT/scripts/generate-files.sh" \
+  "$PLUGIN_ROOT" "." \
+  "$PKG_MANAGER" "$TEST_CMD" "$TYPECHECK_CMD" "$LINT_CMD" \
+  "$HAS_DB"
+```
+
+변수값은 Step 1의 analyze-project.sh 출력에서 가져온다:
+- `PKG_MANAGER` → 락파일 감지 결과 (bun.lockb → `bun`, pnpm-lock.yaml → `pnpm`, package-lock.json → `npm`)
+- `TEST_CMD` → 테스트 프레임워크 감지 결과 (vitest → `bun test`, jest → `npm test` 등)
+- `TYPECHECK_CMD` → TypeScript 있으면 `$PKG_MANAGER run typecheck`, 없으면 `true`
+- `LINT_CMD` → 포매터 감지 결과 (biome → `biome check`, eslint → `eslint .` 등)
+- `HAS_DB` → DB를 사용하면 `true` (db-guard.sh 포함), 아니면 `false` (mcp__* 훅 제거)
+
+**2단계 — 커스터마이징 (Claude가 Read+Write):**
+스크립트 실행 후, 아래 파일만 템플릿을 Read하여 계획서 기반으로 커스터마이징한다.
+(19개 파일은 이미 생성 완료 — 다시 읽지 않는다.)
 
 **TODO/Placeholder 금지:** 최종 생성 파일에 `TODO`, `FIXME`, `Placeholder`, `여기에 작성` 등이 남아있으면 안 된다. 계획서에 정보가 부족하면 합리적 기본값으로 채우고 `[추정]` 표시.
 
-**항상 생성 (기본 23파일 + CLAUDE.md = 총 24파일):**
+**커스터마이징 대상 (항상):**
 
-Rules (수동적 규칙 — 자동 로드):
-
-| 파일 | 커스터마이징 |
-|------|------------|
-| `rules/conventions.md` | 그대로 복사. 프로젝트 추가 컨벤션 있으면 추가. |
-| `rules/security.md` | 템플릿 복사 후 TODO를 계획서 보안/인증 요구사항으로 채움. paths 스코프 유지. |
-| `rules/error-handling.md` | 템플릿 복사 후 TODO를 계획서 에러 전략으로 채움. AppError 구조·에러 7종은 유지. |
-| `rules/testing.md` | 템플릿 복사 후 프로젝트 테스트 도구·mock 대상으로 보강. 에러 7종 테스트는 유지. |
-
-Skills (능동적 워크플로우 — Claude 자동 발견):
+> 아래 파일만 Read 도구로 템플릿을 읽고, 계획서 기반으로 커스터마이징하여 Write한다.
+> 나머지 19개 파일(conventions, easy-refactoring, skill-discovery, review, commit-push-pr, session-start, edit-monitor, secret-guard, command-guard, security-trigger, code-reviewer, debugger, lessons, decisions, settings.json, check, security-review, pre-commit-check, test-runner)은 1단계에서 이미 생성 완료.
 
 | 파일 | 커스터마이징 |
 |------|------------|
-| `skills/project-directory/SKILL.md` | 템플릿 복사 후 TODO를 실제 프로젝트 디렉토리 구조로 채움. |
-| `skills/easy-refactoring/SKILL.md` | 그대로 복사. |
-| `skills/skill-discovery/SKILL.md` | 그대로 복사. |
-
-Settings/Commands/Hooks/Agents:
-
-| 파일 | 커스터마이징 |
-|------|------------|
-| `settings.json` | PKG_MANAGER 기반 권한, 보안 훅 등록 |
-| `commands/review.md` | 그대로 복사 |
-| `commands/check.md` | {{PKG_MANAGER}} 치환 |
-| `commands/commit-push-pr.md` | 그대로 복사 |
-| `commands/security-review.md` | {{PKG_MANAGER}} 치환 |
-| `hooks/session-start.sh` | 그대로 복사 |
-| `hooks/edit-monitor.sh` | 그대로 복사 |
-| `hooks/pre-commit-check.sh` | {{TYPECHECK_CMD}}, {{LINT_CMD}}, {{TEST_CMD}} 치환 |
-| `hooks/secret-guard.sh` | 그대로 복사 |
-| `hooks/command-guard.sh` | 그대로 복사 |
-| `hooks/security-trigger.sh` | 그대로 복사 |
-| `agents/test-runner.md` | {{TEST_CMD}} 치환 |
-| `agents/code-reviewer.md` | 그대로 복사 |
-| `agents/debugger.md` | 그대로 복사 |
-| `lessons.md` | 그대로 복사 (빈 템플릿) |
-| `decisions.md` | 그대로 복사 (빈 템플릿) |
+| `rules/security.md` | 템플릿 Read 후 TODO를 계획서 보안/인증 요구사항으로 채움. paths 스코프 유지. |
+| `rules/error-handling.md` | 템플릿 Read 후 TODO를 계획서 에러 전략으로 채움. AppError 구조·에러 7종은 유지. |
+| `rules/testing.md` | 템플릿 Read 후 프로젝트 테스트 도구·mock 대상으로 보강. 에러 7종 테스트는 유지. |
+| `skills/project-directory/SKILL.md` | 템플릿 Read 후 TODO를 실제 프로젝트 디렉토리 구조로 채움. |
 
 **조건부 생성 (HAS_FRONTEND=true):**
 
@@ -249,8 +238,9 @@ Settings/Commands/Hooks/Agents:
 
 | 파일 | 커스터마이징 |
 |------|------------|
-| `rules/database.md` | ORM 감지 결과 기반으로 채움. paths 스코프를 프로젝트 DB 경로로 조정. |
-| `hooks/db-guard.sh` | 그대로 복사. MCP 도구를 통한 파괴적 SQL 차단. |
+| `rules/database.md` | 템플릿 Read 후 ORM 감지 결과 기반으로 채움. paths 스코프를 프로젝트 DB 경로로 조정. |
+
+> `hooks/db-guard.sh`는 1단계 generate-files.sh에서 `HAS_DB=true` 시 자동 복사됨.
 
 **조건부 생성 (의존성 주의사항 있을 때):**
 
