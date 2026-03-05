@@ -181,8 +181,8 @@ CLAUDE.md 생성 핵심 규칙:
 
 **`{{AGENT_TIER_SECTION}}` 치환:** 계획서 4번의 AGENT_TIER 값에 따라:
 - **Tier 1**: `직렬 구현. 한 번에 하나의 기능씩 완성 후 다음으로 이동.`
-- **Tier 2**: `서브에이전트 위임 구현. 독립적인 작업은 Task 도구로 병렬 위임.` + 위임 기준, `.claude/agents/` 활용, Tier 변경 시 decisions.md 기록 규칙
-- **Tier 3**: `팀 모드 구현. claude -w feature-name (worktree)으로 독립 브랜치 생성.` + worktree 필수, agents/skills 참조, Tier 변경 시 decisions.md 기록 규칙
+- **Tier 2**: `서브에이전트 위임 구현. 독립적인 작업은 Agent 도구로 병렬 위임.` + 위임 기준, `.claude/agents/`의 커스텀 에이전트(에이전트명 나열) 활용, `/launchpad:build` Step 8 실행 프로토콜 참조, Tier 변경 시 decisions.md 기록 규칙
+- **Tier 3**: `팀 모드 구현. Agent 도구 isolation: "worktree"로 격리된 병렬 작업.` + worktree 필수, `.claude/agents/` 활용, `/launchpad:build` Step 8 실행 프로토콜 참조, Tier 변경 시 decisions.md 기록 규칙
 
 #### 4-2. .claude/ 설정 생성
 

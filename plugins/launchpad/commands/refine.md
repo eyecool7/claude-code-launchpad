@@ -49,7 +49,7 @@ description: 프로젝트 계획서 고도화 프롬프트를 파일로 생성. 
 4. **`/clear` 후** `/launchpad:setup` 명령어를 실행하여 다음 단계로 넘어갑니다.
    - refine 대화 히스토리가 setup 컨텍스트를 오염시키므로 반드시 `/clear`로 정리.
 
-**전제 조건**
+**전제 조건:**
 - 계획서 작성이 완료되어 `project-plan.md`가 프로젝트 루트에 있어야 한다.
 - /launchpad:plan 을 먼저 거쳐야 함
 
